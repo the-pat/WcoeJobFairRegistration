@@ -4,6 +4,32 @@
              xmlns:local="clr-namespace:WcoeJobFairRegistration"
              StartupUri="MainWindow.xaml">
     <Application.Resources>
-         
+        <!-- Header text style -->
+        <Style x:Key="HeaderTextStyle">
+            <Setter Property="Label.VerticalAlignment" Value="Center" />
+            <Setter Property="Label.HorizontalAlignment" Value="Center" />
+            <Setter Property="Label.FontFamily" Value="Trebuchet MS" />
+            <Setter Property="Label.FontWeight" Value="Bold" />
+            <Setter Property="Label.FontSize" Value="18" />
+            <Setter Property="Label.Foreground" Value="#990000" />
+        </Style>
+
+        <!-- Button style -->
+        <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
+            <Setter Property="Margin" Value="10,25,10,25" />
+        </Style>
+        
+        <!-- Label style -->
+        <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
+            <Setter Property="VerticalAlignment" Value="Center" />
+            <Setter Property="HorizontalAlignment" Value="Right" />
+            <Setter Property="FontFamily" Value="Trebuchet MS" />
+        </Style>
+        
+        <!-- TextBox style -->
+        <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3,3,10,3" />
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
     </Application.Resources>
 </Application>

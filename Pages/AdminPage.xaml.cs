@@ -13,14 +13,14 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 
-namespace WcoeJobFairRegistration
+namespace WcoeJobFairRegistration.Pages
 {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for AdminPage.xaml
     /// </summary>
-    public partial class MainWindow : NavigationWindow
+    public partial class AdminPage : Page
     {
-        public MainWindow()
+        public AdminPage()
         {
             InitializeComponent();
         }

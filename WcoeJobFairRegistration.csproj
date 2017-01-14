@@ -35,6 +35,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="DYMO.Common">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.Common.dll</HintPath>
+    </Reference>
+    <Reference Include="DYMO.DLS.Runtime">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.DLS.Runtime.dll</HintPath>
+    </Reference>
+    <Reference Include="DYMO.DLS.Runtime.TS">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.DLS.Runtime.TS.dll</HintPath>
+    </Reference>
+    <Reference Include="DYMO.Label.Framework">
+      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.Label.Framework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
@@ -55,6 +67,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="DataAccess\IStudentManager.cs" />
+    <Compile Include="DataAccess\StudentManager.cs" />
+    <Compile Include="Models\Employer.cs" />
+    <Compile Include="Models\Student.cs" />
+    <Compile Include="Pages\AdminPage.xaml.cs">
+      <DependentUpon>AdminPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\EmployerPage.xaml.cs">
+      <DependentUpon>EmployerPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Pages\StudentPage.xaml.cs">
+      <DependentUpon>StudentPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Services\DymoPrintService.cs" />
+    <Compile Include="Services\ICardReader.cs" />
+    <Compile Include="Services\IPrintService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -67,6 +98,22 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Pages\AdminPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\EmployerPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\StudentPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Properties\AssemblyInfo.cs">
@@ -86,6 +133,8 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
+    <None Include="Labels\employer.label" />
+    <None Include="Labels\student.label" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
@@ -95,6 +144,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
