@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace WcoeJobFairRegistration.Services
 {
-    interface ICardReader
+    interface ICardService
     {
         int GetRNumber();
     }

@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Linq;
 using DYMO.Label.Framework;
+using WcoeJobFairRegistration.DataAccess;
 using WcoeJobFairRegistration.Models;
 
 namespace WcoeJobFairRegistration.Services
 {
-    internal class DymoPrintService : IPrintService
+    internal class DymoService : IPrintService
     {
         private readonly ILabelWriterPrinter _printer;
+        private readonly IDataAccess _dataAccess;
 
         /// <summary>
         /// The default constructor. Connects to the first LabelWriterPrinter available.
         /// </summary>
-        public DymoPrintService()
+        public DymoService()
             : this(Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected) as ILabelWriterPrinter)
         {  }
 
@@ -20,8 +22,10 @@ namespace WcoeJobFairRegistration.Services
         /// A constructor. Connects to the given LabelWriterPrinter.
         /// </summary>
         /// <param name="printer">The given LabelWriterPrinter</param>
-        public DymoPrintService(ILabelWriterPrinter printer)
+        public DymoService(ILabelWriterPrinter printer)
         {
+            _dataAccess = new DataAccess.DataAccess();
+
             if (this._printer == null)
             {
                 throw new NullReferenceException("Unable to establish connection to printer.");
@@ -49,7 +53,7 @@ namespace WcoeJobFairRegistration.Services
             }
             catch (Exception ex)
             {
-                // TODO: Log the error
+                _dataAccess.LogError($"Error printing the student label. {ex.Message}");
                 return false;
             }
         }
@@ -75,7 +79,7 @@ namespace WcoeJobFairRegistration.Services
             }
             catch (Exception ex)
             {
-                // TODO: Log the error
+                _dataAccess.LogError($"Error printing the employer label. {ex.Message}");
                 return false;
             }
         }

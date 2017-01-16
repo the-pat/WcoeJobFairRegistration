@@ -6,31 +6,24 @@ using System.Threading.Tasks;
 
 namespace WcoeJobFairRegistration.Models
 {
-    internal class Student
+    public class Student
     {
-        /// <summary>
-        /// The student's RNumber
-        /// </summary>
+        public int ID { get; set; }
+
         public int RNumber { get; set; }
 
-        /// <summary>
-        /// The student's first name
-        /// </summary>
         public string FirstName { get; set; }
 
-        /// <summary>
-        /// The students's last name
-        /// </summary>
         public string LastName { get; set; }
 
-        /// <summary>
-        /// The student's major
-        /// </summary>
         public string Major { get; set; }
 
-        /// <summary>
-        /// The student's graduation date
-        /// </summary>
         public DateTime GraduationDate { get; set; }
+
+        public DateTime? LastSignInTime { get; set; }
+
+        public int SignInCount { get; set; }
+
+        public bool? IsPreRegistered { get; set; }
     }
 }

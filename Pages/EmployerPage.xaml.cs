@@ -27,7 +27,7 @@ namespace WcoeJobFairRegistration.Pages
             PrintButton.IsEnabled = false;
             PrintButton.Content = "Printing...";
 
-            IPrintService printService = new DymoPrintService();
+            IPrintService printService = new DymoService();
             MessageBoxResult result;
             var employer = new Employer
             {

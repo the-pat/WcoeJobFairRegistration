@@ -11,7 +11,7 @@ namespace WcoeJobFairRegistration.Pages
     /// </summary>
     public partial class StudentPage : Page
     {
-        private readonly ICardReader _cardReader;
+        private readonly ICardService _cardReader;
         private readonly IStudentManager _studentManager;
 
         private int _rNumber;
@@ -56,7 +56,7 @@ namespace WcoeJobFairRegistration.Pages
             PrintButton.IsEnabled = false;
             PrintButton.Content = "Printing...";
 
-            IPrintService printService = new DymoPrintService();
+            IPrintService printService = new DymoService();
             MessageBoxResult result;
             var student = new Student
             {
