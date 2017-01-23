@@ -7,8 +7,12 @@ using WcoeJobFairRegistration.Models;
 
 namespace WcoeJobFairRegistration.DataAccess
 {
-    internal interface IStudentManager
+    internal interface IDataAccess
     {
-        Student GetStudentById(int id);
+        Employer SaveEmployer(Employer employer);
+
+        Student GetStudentByRNum(int rNum);
+
+        Error LogError(string message);
     }
 }

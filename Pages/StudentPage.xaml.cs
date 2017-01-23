@@ -1,5 +1,6 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Input;
 using WcoeJobFairRegistration.DataAccess;
 using WcoeJobFairRegistration.Models;
 using WcoeJobFairRegistration.Services;
@@ -11,32 +12,30 @@ namespace WcoeJobFairRegistration.Pages
     /// </summary>
     public partial class StudentPage : Page
     {
-        private readonly ICardReader _cardReader;
-        private readonly IStudentManager _studentManager;
-
-        private int _rNumber;
+        private readonly IDataAccess _dataAccess;
 
         public StudentPage()
         {
-            this._studentManager = new StudentManager();
+            _dataAccess = new DataAccess.DataAccess();
             InitializeComponent();
 
             // TODO: Add the majors to the combobox
 
-            // TODO: Listen for student to swipe their student ID
-
-            // TODO: Get student name and major from database
-
-            // TODO: Enable the student to print their label
+            FocusManager.SetFocusedElement(this, this.txtIdNumber);
         }
 
-        /// <summary>
-        /// When the student id is swiped, get the student's information
-        /// </summary>
-        private void OnCardSwipe()
+        private void OnStudentIdTextChanged(object sender, TextChangedEventArgs e)
         {
-            this._rNumber = this._cardReader.GetRNumber();
-            var student = this._studentManager.GetStudentById(this._rNumber);
+            var rNumber = 0;
+
+            if (string.IsNullOrWhiteSpace(this.txtIdNumber.Text) ||
+                this.txtIdNumber.Text.Trim().Length != 8 &&
+                !int.TryParse(this.txtIdNumber.Text.Trim(), out rNumber))
+            {
+                return;
+            }
+
+            var student = _dataAccess.GetStudentByRNum(rNumber);
 
             if (student == null)
             {
@@ -48,7 +47,12 @@ namespace WcoeJobFairRegistration.Pages
                 this.txtFirstName.Text = student.FirstName;
                 this.txtLastName.Text = student.LastName;
                 this.cbxMajor.SelectedIndex = this.cbxMajor.Items.IndexOf(student.Major);
+
+                // Since all of the information is ready, allow the student to print.
+                this.PrintButton.IsEnabled = true;
             }
+
+            FocusManager.SetFocusedElement(this, this.txtFirstName);
         }
 
         private void OnPrintButtonClick(object sender, RoutedEventArgs e)
@@ -56,7 +60,7 @@ namespace WcoeJobFairRegistration.Pages
             PrintButton.IsEnabled = false;
             PrintButton.Content = "Printing...";
 
-            IPrintService printService = new DymoPrintService();
+            IPrintService printService = new DymoService();
             MessageBoxResult result;
             var student = new Student
             {
@@ -79,6 +83,12 @@ namespace WcoeJobFairRegistration.Pages
             }
 
             this.NavigationService.Navigate(this);
+        }
+
+        private void OnTextChanged(object sender, TextChangedEventArgs e)
+        {
+            this.PrintButton.IsEnabled = !string.IsNullOrWhiteSpace(this.txtFirstName.Text) &&
+                                         !string.IsNullOrWhiteSpace(this.txtLastName.Text);
         }
     }
 }

@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace WcoeJobFairRegistration.Services
 {
-    interface ICardReader
+    interface ILogger
     {
-        int GetRNumber();
+        // TODO: Save db queries
+        // TODO: Save errors
     }
 }

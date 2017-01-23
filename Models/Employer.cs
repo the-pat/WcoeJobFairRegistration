@@ -6,26 +6,24 @@ using System.Threading.Tasks;
 
 namespace WcoeJobFairRegistration.Models
 {
-    internal class Employer
+    public class Employer
     {
-        /// <summary>
-        /// The employer's first name
-        /// </summary>
+        public int ID { get; set; }
+
         public string FirstName { get; set; }
 
-        /// <summary>
-        /// The employer's last name
-        /// </summary>
         public string LastName { get; set; }
 
-        /// <summary>
-        /// The organization the employer is representing
-        /// </summary>
         public string Organization { get; set; }
 
-        /// <summary>
-        /// True represents that the employer is an alumni
-        /// </summary>
+        public string Title { get; set; }
+
+        public string Hotel { get; set; }
+
+        public int NumberOfNights { get; set; }
+
         public bool IsAlumni { get; set; }
+
+        public string Other { get; set; }
     }
 }
