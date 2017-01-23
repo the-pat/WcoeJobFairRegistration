@@ -28,7 +28,7 @@ namespace WcoeJobFairRegistration.Services
 
             if (this._printer == null)
             {
-                throw new NullReferenceException("Unable to establish connection to printer.");
+                _dataAccess.LogError("Unable to establish connection to a printer.");
             }
 
             this._printer = printer;

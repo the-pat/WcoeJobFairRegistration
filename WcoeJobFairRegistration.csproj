@@ -117,7 +117,7 @@
       <DependentUpon>StudentPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Services\DymoService.cs" />
-    <Compile Include="Services\ICardService.cs" />
+    <Compile Include="Services\ILogger.cs" />
     <Compile Include="Services\IPrintService.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
