@@ -17,6 +17,8 @@ namespace WcoeJobFairRegistration.DataAccess
         public DataAccess(LocalDbContext context)
         {
             _db = context;
+            // TODO: Add Logging (https://msdn.microsoft.com/en-us/library/dn469464(v=vs.113).aspx)
+            //_db.Database.Log = ILogger
         }
 
         /// <summary>
@@ -49,7 +51,7 @@ namespace WcoeJobFairRegistration.DataAccess
         /// </summary>
         /// <param name="rNum">The student id</param>
         /// <returns>Null if no student was found.</returns>
-        public Student GetStudentById(int rNum)
+        public Student GetStudentByRNum(int rNum)
         {
             var student = _db.Students.FirstOrDefault(s => s.RNumber == rNum);
 
@@ -70,7 +72,7 @@ namespace WcoeJobFairRegistration.DataAccess
         }
 
         /// <summary>
-        /// Save the error in the database.
+        /// Save the error in the database. TODO: Move into logging service
         /// </summary>
         /// <param name="message">The error message string</param>
         /// <returns>Null if there was an issue saving to the database.</returns>

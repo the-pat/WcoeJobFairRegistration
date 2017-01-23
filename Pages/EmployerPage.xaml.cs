@@ -1,5 +1,7 @@
-﻿using System.Windows;
+﻿using System;
+using System.Windows;
 using System.Windows.Controls;
+using DYMO.Label.Framework;
 using WcoeJobFairRegistration.Models;
 using WcoeJobFairRegistration.Services;
 
@@ -17,9 +19,9 @@ namespace WcoeJobFairRegistration.Pages
 
         private void OnTextBoxChanged(object sender, TextChangedEventArgs e)
         {
-            this.PrintButton.IsEnabled = !(string.IsNullOrWhiteSpace(this.txtFirstName.Text) ||
-                                           string.IsNullOrWhiteSpace(this.txtLastName.Text) ||
-                                           string.IsNullOrWhiteSpace(this.txtOrganization.Text));
+            this.PrintButton.IsEnabled = !string.IsNullOrWhiteSpace(this.txtFirstName.Text) &&
+                                         !string.IsNullOrWhiteSpace(this.txtLastName.Text) &&
+                                         !string.IsNullOrWhiteSpace(this.txtOrganization.Text);
         }
 
         private void OnPrintButtonClick(object sender, RoutedEventArgs e)
@@ -29,6 +31,7 @@ namespace WcoeJobFairRegistration.Pages
 
             IPrintService printService = new DymoService();
             MessageBoxResult result;
+
             var employer = new Employer
             {
                 FirstName = this.txtFirstName.Text,
@@ -38,13 +41,11 @@ namespace WcoeJobFairRegistration.Pages
 
             if (printService.PrintEmployerLabel(employer))
             {
-                // TODO: Log employer attendance (organization, name, time)
                 result = MessageBox.Show("Printing complete.\n\nHave a great day!", "Success!",
                     MessageBoxButton.OK, MessageBoxImage.None, MessageBoxResult.OK);
             }
             else
             {
-                // TODO: Log error
                 result = MessageBox.Show("An printer error has occured.\n\nPlease ask for assistance.",
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }

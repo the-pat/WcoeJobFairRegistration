@@ -11,7 +11,7 @@ namespace WcoeJobFairRegistration.DataAccess
     {
         Employer SaveEmployer(Employer employer);
 
-        Student GetStudentById(int rNum);
+        Student GetStudentByRNum(int rNum);
 
         Error LogError(string message);
     }
