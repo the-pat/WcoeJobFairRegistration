@@ -95,14 +95,16 @@
     </ApplicationDefinition>
     <Compile Include="DataAccess\DataAccess.cs" />
     <Compile Include="DataAccess\IDataAccess.cs" />
-    <Compile Include="DbSet.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>DbSet.xsd</DependentUpon>
-    </Compile>
+    <Compile Include="DataAccess\IEmployerRepository.cs" />
+    <Compile Include="DataAccess\IStudentRepository.cs" />
+    <Compile Include="DataAccess\LocalEmployerRepository.cs" />
+    <Compile Include="DataAccess\LocalStudentRepository.cs" />
+    <Compile Include="DataAccess\RemoteEmployerRepository.cs" />
+    <Compile Include="DataAccess\RemoteStudentRepository.cs" />
+    <Compile Include="Models\RemoteDbContext.cs" />
+    <Compile Include="Models\LocalDbContext.cs" />
     <Compile Include="Models\Employer.cs" />
     <Compile Include="Models\Error.cs" />
-    <Compile Include="Models\LocalDbContext.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Pages\AdminPage.xaml.cs">
       <DependentUpon>AdminPage.xaml</DependentUpon>
@@ -166,17 +168,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="DbSet.xsc">
-      <DependentUpon>DbSet.xsd</DependentUpon>
-    </None>
-    <None Include="DbSet.xsd">
-      <Generator>MSDataSetGenerator</Generator>
-      <LastGenOutput>DbSet.Designer.cs</LastGenOutput>
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="DbSet.xss">
-      <DependentUpon>DbSet.xsd</DependentUpon>
-    </None>
     <None Include="Labels\employer.label" />
     <None Include="Labels\student.label" />
     <None Include="packages.config" />
@@ -190,15 +181,6 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="LocalDatabase.mdf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="LocalDatabase_log.ldf">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-      <DependentUpon>LocalDatabase.mdf</DependentUpon>
-    </Content>
-  </ItemGroup>
-  <ItemGroup>
     <BootstrapperPackage Include=".NETFramework,Version=v4.5.2">
       <Visible>False</Visible>
       <ProductName>Microsoft .NET Framework 4.5.2 %28x86 and x64%29</ProductName>
@@ -209,6 +191,9 @@
       <ProductName>.NET Framework 3.5 SP1</ProductName>
       <Install>false</Install>
     </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Databases\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

@@ -25,5 +25,7 @@ namespace WcoeJobFairRegistration.Models
         public bool IsAlumni { get; set; }
 
         public string Other { get; set; }
+
+        public DateTime CheckedInTime { get; set; }
     }
 }

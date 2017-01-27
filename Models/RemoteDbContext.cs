@@ -2,7 +2,7 @@
 
 namespace WcoeJobFairRegistration.Models
 {
-    public class LocalDbContext : DbContext
+    public class RemoteDbContext : DbContext
     {
         public DbSet<Student> Students { get; set; }
         public DbSet<Employer> Employers { get; set; }

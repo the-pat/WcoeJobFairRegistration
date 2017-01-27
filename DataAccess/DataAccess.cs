@@ -7,85 +7,16 @@ using WcoeJobFairRegistration.Models;
 
 namespace WcoeJobFairRegistration.DataAccess
 {
-    internal class DataAccess : IDataAccess
+    public class DataAccess : IDataAccess
     {
-        private readonly LocalDbContext _db;
+        public IStudentRepository StudentRepo { get; }
 
-        public DataAccess() : this(new LocalDbContext())
-        { }
+        public IEmployerRepository EmployerRepository { get; }
 
-        public DataAccess(LocalDbContext context)
+        public DataAccess(IStudentRepository studentRepo, IEmployerRepository employerRepo)
         {
-            _db = context;
-            // TODO: Add Logging (https://msdn.microsoft.com/en-us/library/dn469464(v=vs.113).aspx)
-            //_db.Database.Log = ILogger
-        }
-
-        /// <summary>
-        /// Save the employer info in the database.
-        /// </summary>
-        /// <param name="employer">The employer information.</param>
-        /// <returns>Null if there was an error saving the employer info.</returns>
-        public Employer SaveEmployer(Employer employer)
-        {
-            Employer loggedEmployer = null;
-
-            try
-            {
-                loggedEmployer = _db.Employers.Add(employer);
-                _db.SaveChanges();
-            }
-            catch (Exception e)
-            {
-                LogError("An error occurred while adding an employer.\n" +
-                         $"Employer Name: {employer.FirstName} {employer.LastName}\n" +
-                         $"Employer Organization: {employer.Organization}\n" +
-                         $"Error: {e.Message}");
-            }
-            
-            return loggedEmployer;
-        }
-
-        /// <summary>
-        /// Given a student id (RNumber), return the student.
-        /// </summary>
-        /// <param name="rNum">The student id</param>
-        /// <returns>Null if no student was found.</returns>
-        public Student GetStudentByRNum(int rNum)
-        {
-            var student = _db.Students.FirstOrDefault(s => s.RNumber == rNum);
-
-            if (student != null)
-            {
-                //student.IsPreRegistered =;
-                student.SignInCount++;
-                student.LastSignInTime = DateTime.UtcNow;
-
-                _db.SaveChanges();
-            }
-            else
-            {
-                LogError($"No student with the RNumber {rNum} found in the database.");
-            }
-
-            return student;
-        }
-
-        /// <summary>
-        /// Save the error in the database. TODO: Move into logging service
-        /// </summary>
-        /// <param name="message">The error message string</param>
-        /// <returns>Null if there was an issue saving to the database.</returns>
-        public Error LogError(string message)
-        {
-            var error = _db.Errors.Add(new Error
-            {
-                Message = message,
-                ErrorTime = DateTime.UtcNow
-            });
-
-            _db.SaveChanges();
-            return error;
+            StudentRepo = studentRepo;
+            EmployerRepository = employerRepo;
         }
     }
 }
