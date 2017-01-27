@@ -16,14 +16,10 @@ namespace WcoeJobFairRegistration.Models
 
         public string LastName { get; set; }
 
-        public string Major { get; set; }
-
-        public DateTime GraduationDate { get; set; }
-
-        public DateTime? LastSignInTime { get; set; }
-
-        public int SignInCount { get; set; }
+        public DateTime? CheckedInTime { get; set; }
 
         public bool? IsPreRegistered { get; set; }
+
+        public bool IsSynced { get; set; }
     }
 }

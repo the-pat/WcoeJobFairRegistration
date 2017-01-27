@@ -8,7 +8,7 @@ using WcoeJobFairRegistration.Services;
 namespace WcoeJobFairRegistration.Pages
 {
     /// <summary>
-    /// Interaction logic for StudentPage.xaml
+    ///     Interaction logic for StudentPage.xaml
     /// </summary>
     public partial class StudentPage : Page
     {
@@ -16,43 +16,39 @@ namespace WcoeJobFairRegistration.Pages
 
         public StudentPage()
         {
-            _dataAccess = new DataAccess.DataAccess();
+            _dataAccess = new DataAccess.DataAccess(new LocalStudentRepository(), new LocalEmployerRepository());
             InitializeComponent();
 
-            // TODO: Add the majors to the combobox
-
-            FocusManager.SetFocusedElement(this, this.txtIdNumber);
+            FocusManager.SetFocusedElement(this, txtIdNumber);
         }
 
         private void OnStudentIdTextChanged(object sender, TextChangedEventArgs e)
         {
             var rNumber = 0;
 
-            if (string.IsNullOrWhiteSpace(this.txtIdNumber.Text) ||
-                this.txtIdNumber.Text.Trim().Length != 8 &&
-                !int.TryParse(this.txtIdNumber.Text.Trim(), out rNumber))
-            {
+            // TODO: Format what the card returns (i.e. ;01234567=0067?). The first segment contains the RNum
+            if (string.IsNullOrWhiteSpace(txtIdNumber.Text) ||
+                txtIdNumber.Text.Trim().Length != 8 &&
+                !int.TryParse(txtIdNumber.Text.Trim(), out rNumber))
                 return;
-            }
 
-            var student = _dataAccess.GetStudentByRNum(rNumber);
+            var student = _dataAccess.StudentRepo.GetByStudentID(rNumber);
 
             if (student == null)
             {
-                this.txtErrorMessage.Text = "No student with that ID registered.\n\nPlease enter your information.";
-                this.txtErrorMessage.Visibility = Visibility.Visible;
+                txtErrorMessage.Text = "No student with that ID registered.\n\nPlease enter your information.";
+                txtErrorMessage.Visibility = Visibility.Visible;
             }
             else
             {
-                this.txtFirstName.Text = student.FirstName;
-                this.txtLastName.Text = student.LastName;
-                this.cbxMajor.SelectedIndex = this.cbxMajor.Items.IndexOf(student.Major);
+                txtFirstName.Text = student.FirstName;
+                txtLastName.Text = student.LastName;
 
                 // Since all of the information is ready, allow the student to print.
-                this.PrintButton.IsEnabled = true;
+                PrintButton.IsEnabled = true;
             }
 
-            FocusManager.SetFocusedElement(this, this.txtFirstName);
+            FocusManager.SetFocusedElement(this, txtFirstName);
         }
 
         private void OnPrintButtonClick(object sender, RoutedEventArgs e)
@@ -64,31 +60,24 @@ namespace WcoeJobFairRegistration.Pages
             MessageBoxResult result;
             var student = new Student
             {
-                FirstName = this.txtFirstName.Text,
-                LastName = this.txtLastName.Text,
-                Major = this.cbxMajor.Text
+                FirstName = txtFirstName.Text,
+                LastName = txtLastName.Text
             };
 
             if (printService.PrintStudentLabel(student))
-            {
-                // TODO: Log student attendance (rnumber, name, time)
                 result = MessageBox.Show("Printing complete.\n\nGood luck!", "Success!",
                     MessageBoxButton.OK, MessageBoxImage.None, MessageBoxResult.OK);
-            }
             else
-            {
-                // TODO: Log error
                 result = MessageBox.Show("An printer error has occured.\n\nPlease ask for assistance.",
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
-            }
 
-            this.NavigationService.Navigate(this);
+            NavigationService.Navigate(this);
         }
 
         private void OnTextChanged(object sender, TextChangedEventArgs e)
         {
-            this.PrintButton.IsEnabled = !string.IsNullOrWhiteSpace(this.txtFirstName.Text) &&
-                                         !string.IsNullOrWhiteSpace(this.txtLastName.Text);
+            PrintButton.IsEnabled = !string.IsNullOrWhiteSpace(txtFirstName.Text) &&
+                                    !string.IsNullOrWhiteSpace(txtLastName.Text);
         }
     }
 }

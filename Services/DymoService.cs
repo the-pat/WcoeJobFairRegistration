@@ -24,11 +24,12 @@ namespace WcoeJobFairRegistration.Services
         /// <param name="printer">The given LabelWriterPrinter</param>
         public DymoService(ILabelWriterPrinter printer)
         {
-            _dataAccess = new DataAccess.DataAccess();
+            _dataAccess = new DataAccess.DataAccess(new LocalStudentRepository(), new LocalEmployerRepository());
 
             if (this._printer == null)
             {
-                _dataAccess.LogError("Unable to establish connection to a printer.");
+                // TODO: Log error
+                //_dataAccess.LogError("Unable to establish connection to a printer.");
             }
 
             this._printer = printer;
@@ -46,14 +47,14 @@ namespace WcoeJobFairRegistration.Services
                 var label = Label.Open("Labels/student.label");
 
                 label.SetObjectText("NAME", $"{student.FirstName} {student.LastName}");
-                label.SetObjectText("MAJOR", student.Major);
                 this.Print(label);
 
                 return true;
             }
             catch (Exception ex)
             {
-                _dataAccess.LogError($"Error printing the student label. {ex.Message}");
+                // TODO: Log error
+                //_dataAccess.LogError($"Error printing the student label. {ex.Message}");
                 return false;
             }
         }
@@ -79,7 +80,8 @@ namespace WcoeJobFairRegistration.Services
             }
             catch (Exception ex)
             {
-                _dataAccess.LogError($"Error printing the employer label. {ex.Message}");
+                // TODO: Log error
+                //_dataAccess.LogError($"Error printing the employer label. {ex.Message}");
                 return false;
             }
         }
