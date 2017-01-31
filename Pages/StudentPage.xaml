@@ -35,7 +35,7 @@
             <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
             <TextBox Name="txtFirstName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" TextChanged="OnTextChanged" Style="{StaticResource TextBoxStyle}"></TextBox>
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
-            <TextBox Name="txtLastName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource TextBoxStyle}"></TextBox>
+            <TextBox Name="txtLastName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3"  TextChanged="OnTextChanged" Style="{StaticResource TextBoxStyle}"></TextBox>
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Major:</Label>
             <ComboBox Name="cbxMajor" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Margin="3,3,10,3"></ComboBox>
             <TextBlock Name="txtErrorMessage" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"></TextBlock>
