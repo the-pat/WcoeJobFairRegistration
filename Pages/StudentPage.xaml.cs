@@ -24,12 +24,12 @@ namespace WcoeJobFairRegistration.Pages
 
         private void OnStudentIdTextChanged(object sender, TextChangedEventArgs e)
         {
-            var rNumber = 0;
+            int rNumber;
 
-            // TODO: Format what the card returns (i.e. ;01234567=0067?). The first segment contains the RNum
+            // Format what the card returns (i.e. ;01234567=0067?). The first segment contains the RNum
             if (string.IsNullOrWhiteSpace(txtIdNumber.Text) ||
-                txtIdNumber.Text.Trim().Length != 8 &&
-                !int.TryParse(txtIdNumber.Text.Trim(), out rNumber))
+                txtIdNumber.Text.Trim().Length != 15 ||
+                !int.TryParse(txtIdNumber.Text.Trim().Substring(1, 8), out rNumber))
                 return;
 
             var student = _dataAccess.StudentRepo.GetByStudentID(rNumber);
