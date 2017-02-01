@@ -96,7 +96,7 @@ namespace WcoeJobFairRegistration.ViewModels
                 IsAlumni = IsAlumni,
                 CheckedInTime = DateTime.Now
             };
-            var result = await Task.Run(() => _printService.PrintLabel(employer));
+            var result = await Task.Run(() => _printService.PrintEmployerLabel(employer));
 
             if (result)
             {

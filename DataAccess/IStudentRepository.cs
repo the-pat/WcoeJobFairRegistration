@@ -1,16 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using WcoeJobFairRegistration.Models;
 
 namespace WcoeJobFairRegistration.DataAccess
 {
-    public interface IStudentRepository : IDisposable
+    public interface IStudentRepository
     {
-        Student GetByStudentID(int studentID);
+        Task<bool> Load(string fileName);
 
-        Student SaveStudent(Student student);
+        Task<JobGridStudent> Find(string rNumber);
+
+        Task<bool> Save(AttendingStudent student);
     }
 }
