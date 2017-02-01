@@ -1,6 +1,6 @@
 ﻿using System.Threading.Tasks;
 using System.Windows;
-using System.Windows.Input;
+using WcoeJobFairRegistration.DataAccess;
 using WcoeJobFairRegistration.Models;
 using WcoeJobFairRegistration.Services;
 
@@ -8,11 +8,17 @@ namespace WcoeJobFairRegistration.ViewModels
 {
     public class StudentPageViewModel : ObservableObject
     {
+        IStudentRepository _studentRepository;
         IPrintService _printService;
 
         public StudentPageViewModel()
         {
-            _printService = new DymoService();
+            App app = (Application.Current as App);
+            _studentRepository = app.StudentRepository;
+            _printService = app.PrintService;
+
+            // TODO: Remove
+            _studentRepository.Load(@"C:\Users\souls\Downloads\students.csv");
         }
 
         private string _rNumber;
@@ -25,6 +31,7 @@ namespace WcoeJobFairRegistration.ViewModels
                 {
                     SetProperty(ref _rNumber, value.Substring(1, 8));
                     CardError = "";
+                    FindStudent();
                 }
                 else
                 {
@@ -55,21 +62,22 @@ namespace WcoeJobFairRegistration.ViewModels
         }
 
         private Command _printCommand;
-        public ICommand PrintCommand
+        public Command PrintCommand
         {
-            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand())); }
+            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint)); }
         }
 
         private async Task ExecutePrintCommand()
         {
             _printCommand.ChangeCanExecute();
 
-            var student = new Student { FirstName = FirstName, LastName = LastName, RNumber = int.Parse(RNumber) };
+            var student = new AttendingStudent { FirstName = FirstName, LastName = LastName, RNumber = int.Parse(RNumber) };
             var result = await Task.Run(() => _printService.PrintStudentLabel(student));
 
             if(result)
             {
-                // TODO: Persist to file
+                await _studentRepository.Save(student);
+                // TODO: Show appropriate message and reset page
             }
             else
             {
@@ -77,7 +85,42 @@ namespace WcoeJobFairRegistration.ViewModels
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
-            _printCommand.ChangeCanExecute();
+            _printCommand.ChangeCanExecute();            
+        }    
+
+        private bool _inputEnabled = true;
+        public bool InputEnabled
+        {
+            get { return _inputEnabled; }
+            set { SetProperty(ref _inputEnabled, value); }
+        }
+
+        private bool _canPrint = false;
+        public bool CanPrint
+        {
+            get { return _canPrint; }
+            set { SetProperty(ref _canPrint, value); }
+        }
+
+        private async Task FindStudent()
+        {
+            InputEnabled = false;
+
+            var student = await _studentRepository.Find("R" + RNumber);
+            if(student == null)
+            {
+                // TODO: Show better error
+                MessageBox.Show("Student not found");
+                InputEnabled = true;
+            }
+            else
+            {
+                FirstName = student.FirstName;
+                LastName = student.LastName;
+
+                CanPrint = true;
+                PrintCommand.ChangeCanExecute();
+            }
         }
     }
 }

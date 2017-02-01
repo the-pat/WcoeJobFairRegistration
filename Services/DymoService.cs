@@ -8,31 +8,14 @@ namespace WcoeJobFairRegistration.Services
 {
     internal class DymoService : IPrintService
     {
-        private readonly ILabelWriterPrinter _printer;
-        private readonly IDataAccess _dataAccess;
+        private ILabelWriterPrinter _printer;
 
         /// <summary>
         /// The default constructor. Connects to the first LabelWriterPrinter available.
         /// </summary>
         public DymoService()
-            : this(Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected) as ILabelWriterPrinter)
-        {  }
-
-        /// <summary>
-        /// A constructor. Connects to the given LabelWriterPrinter.
-        /// </summary>
-        /// <param name="printer">The given LabelWriterPrinter</param>
-        public DymoService(ILabelWriterPrinter printer)
         {
-            _dataAccess = new DataAccess.DataAccess(new LocalStudentRepository(), new LocalEmployerRepository());
-
-            if (this._printer == null)
-            {
-                // TODO: Log error
-                //_dataAccess.LogError("Unable to establish connection to a printer.");
-            }
-
-            this._printer = printer;
+            _printer = Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected) as ILabelWriterPrinter;
         }
 
         /// <summary>
@@ -40,7 +23,7 @@ namespace WcoeJobFairRegistration.Services
         /// </summary>
         /// <param name="student">The given student</param>
         /// <returns>True represents that the label was printed successfully</returns>
-        public bool PrintStudentLabel(Student student)
+        public bool PrintStudentLabel(AttendingStudent student)
         {
             try
             {
@@ -51,7 +34,7 @@ namespace WcoeJobFairRegistration.Services
 
                 return true;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 // TODO: Log error
                 //_dataAccess.LogError($"Error printing the student label. {ex.Message}");
@@ -78,7 +61,7 @@ namespace WcoeJobFairRegistration.Services
 
                 return true;
             }
-            catch (Exception ex)
+            catch(Exception ex)
             {
                 // TODO: Log error
                 //_dataAccess.LogError($"Error printing the employer label. {ex.Message}");
@@ -96,6 +79,20 @@ namespace WcoeJobFairRegistration.Services
 
             printJob.AddLabel(label);
             printJob.Print();
+        }
+
+        public bool IsConnected()
+        {
+            if(_printer == null)
+                return false;
+
+            return _printer.IsConnected;
+        }
+
+        public bool Connect()
+        {
+            _printer = Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected) as ILabelWriterPrinter;
+            return _printer != null;
         }
     }
 }
