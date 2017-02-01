@@ -5,43 +5,37 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WcoeJobFairRegistration.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
+      d:DesignHeight="400" d:DesignWidth="300"
+      FocusManager.FocusedElement="{Binding ElementName=FirstName}"
       Title="EmployerPage">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        
-        <Label Grid.Row="1" Style="{StaticResource HeaderTextStyle}">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Label Style="{StaticResource HeaderTextStyle}">
             Please enter your information
         </Label>
-        <Grid Grid.Row="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-                <ColumnDefinition />
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-
-            <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
-            <TextBox Name="txtFirstName" Grid.Row="0" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource TextBoxStyle}" TextChanged="OnTextBoxChanged"></TextBox>
-            <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
-            <TextBox Name="txtLastName" Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource TextBoxStyle}" TextChanged="OnTextBoxChanged"></TextBox>
-            <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Organization:</Label>
-            <TextBox Name="txtOrganization" Grid.Row="2" Grid.Column="1" Grid.ColumnSpan="3" Style="{StaticResource TextBoxStyle}" TextChanged="OnTextBoxChanged"></TextBox>
-            <TextBlock Name="txtErrorMessage" Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Visibility="Hidden"></TextBlock>
-        </Grid>
-        <Button Name="PrintButton" Grid.Row="3" Style="{StaticResource ButtonStyle}" IsEnabled="False" Click="OnPrintButtonClick">
+        <GroupBox Header="Basic Info">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
+                <TextBox x:Name="FirstName" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FirstName}"
+                         Style="{StaticResource TextBoxStyle}" />
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=LastName}" 
+                         Style="{StaticResource TextBoxStyle}" />
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Organization:</Label>
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Organization}"
+                         Style="{StaticResource TextBoxStyle}" />
+            </Grid>
+        </GroupBox>
+        <Button Name="PrintButton" Style="{StaticResource ButtonStyle}">
             Print
         </Button>
-    </Grid>
+    </StackPanel>
 </Page>

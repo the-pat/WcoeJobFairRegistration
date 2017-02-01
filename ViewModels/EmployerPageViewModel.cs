@@ -68,6 +68,13 @@ namespace WcoeJobFairRegistration.ViewModels
             set { SetProperty(ref _isAlumni, value); }
         }
 
+        private string _errorMessage;
+        public string ErrorMessage
+        {
+            get { return _errorMessage; }
+            set { SetProperty(ref _errorMessage, value); }
+        }
+
         private Command _printCommand;
         public ICommand PrintCommand
         {

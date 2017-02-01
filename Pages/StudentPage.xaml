@@ -10,10 +10,10 @@
       Title="StudentPage">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Grid.Row="1" Style="{StaticResource HeaderTextStyle}">
+        <Label Style="{StaticResource HeaderTextStyle}">
             Swipe student ID
         </Label>
-        <Grid Grid.Row="2">
+        <Grid>
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="3*" />
                 <ColumnDefinition Width="8*" />
@@ -36,7 +36,7 @@
             <TextBox Text="{Binding Path=LastName}" IsEnabled="False" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}"></TextBox>
 
         </Grid>
-        <Button Grid.Row="3" Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}"
+        <Button Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}"
                 Content="Print"/>
     </StackPanel>
 </Page>
