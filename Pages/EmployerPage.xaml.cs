@@ -39,7 +39,7 @@ namespace WcoeJobFairRegistration.Pages
                 Organization = this.txtOrganization.Text
             };
 
-            if (printService.PrintEmployerLabel(employer))
+            if (printService.PrintLabel(employer))
             {
                 result = MessageBox.Show("Printing complete.\n\nHave a great day!", "Success!",
                     MessageBoxButton.OK, MessageBoxImage.None, MessageBoxResult.OK);

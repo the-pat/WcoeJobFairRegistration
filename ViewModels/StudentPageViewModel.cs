@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System;
+using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
 using WcoeJobFairRegistration.Models;
@@ -8,7 +9,7 @@ namespace WcoeJobFairRegistration.ViewModels
 {
     public class StudentPageViewModel : ObservableObject
     {
-        IPrintService _printService;
+        private readonly IPrintService _printService;
 
         public StudentPageViewModel()
         {
@@ -64,8 +65,8 @@ namespace WcoeJobFairRegistration.ViewModels
         {
             _printCommand.ChangeCanExecute();
 
-            var student = new Student { FirstName = FirstName, LastName = LastName, RNumber = int.Parse(RNumber) };
-            var result = await Task.Run(() => _printService.PrintStudentLabel(student));
+            var student = new Student { FirstName = FirstName, LastName = LastName, RNumber = int.Parse(RNumber), CheckedInTime = DateTime.Now };
+            var result = await Task.Run(() => _printService.PrintLabel(student));
 
             if(result)
             {
@@ -77,7 +78,16 @@ namespace WcoeJobFairRegistration.ViewModels
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
+            ClearData();
+
             _printCommand.ChangeCanExecute();
+        }
+
+        private void ClearData()
+        {
+            FirstName = string.Empty;
+            LastName = string.Empty;
+            RNumber = string.Empty;
         }
     }
 }

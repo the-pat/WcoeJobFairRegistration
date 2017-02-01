@@ -15,13 +15,13 @@ namespace WcoeJobFairRegistration.Services
         /// </summary>
         /// <param name="student">The given student</param>
         /// <returns>True represents that the label was printed successfully</returns>
-        bool PrintStudentLabel(Student student);
+        bool PrintLabel(Student student);
 
         /// <summary>
         /// Given an employer, print a label with the employer's information
         /// </summary>
         /// <param name="employer">The given employer</param>
         /// <returns>True represents that the label was printed successfully</returns>
-        bool PrintEmployerLabel(Employer employer);
+        bool PrintLabel(Employer employer);
     }
 }

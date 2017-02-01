@@ -40,7 +40,7 @@ namespace WcoeJobFairRegistration.Services
         /// </summary>
         /// <param name="student">The given student</param>
         /// <returns>True represents that the label was printed successfully</returns>
-        public bool PrintStudentLabel(Student student)
+        public bool PrintLabel(Student student)
         {
             try
             {
@@ -64,7 +64,7 @@ namespace WcoeJobFairRegistration.Services
         /// </summary>
         /// <param name="employer">The given employer</param>
         /// <returns>True represents that the label was printed successfully</returns>
-        public bool PrintEmployerLabel(Employer employer)
+        public bool PrintLabel(Employer employer)
         {
             try
             {
