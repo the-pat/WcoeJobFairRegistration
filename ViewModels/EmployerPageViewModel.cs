@@ -18,6 +18,7 @@ namespace WcoeJobFairRegistration.ViewModels
 
         public EmployerPageViewModel()
         {
+            _employerRepository = new EmployerRepository();
             _printService = new DymoService();
         }
 
@@ -25,28 +26,44 @@ namespace WcoeJobFairRegistration.ViewModels
         public string FirstName
         {
             get { return _firstName; }
-            set { SetProperty(ref _firstName, value); }
+            set
+            {
+                SetProperty(ref _firstName, value);
+                if (CanPrint) PrintCommand.ChangeCanExecute();
+            }
         }
 
         private string _lastName;
         public string LastName
         {
             get { return _lastName; }
-            set { SetProperty(ref _lastName, value); }
+            set
+            {
+                SetProperty(ref _lastName, value);
+                if (CanPrint) PrintCommand.ChangeCanExecute();
+            }
         }
 
         private string _organization;
         public string Organization
         {
             get { return _organization; }
-            set { SetProperty(ref _organization, value); }
+            set
+            {
+                SetProperty(ref _organization, value);
+                if (CanPrint) PrintCommand.ChangeCanExecute();
+            }
         }
 
         private string _title;
         public string Title
         {
             get { return _title; }
-            set { SetProperty(ref _title, value); }
+            set
+            {
+                SetProperty(ref _title, value);
+                if (CanPrint) PrintCommand.ChangeCanExecute();
+            }
         }
 
         private string _hotel;
@@ -78,13 +95,14 @@ namespace WcoeJobFairRegistration.ViewModels
         }
 
         private Command _printCommand;
-        public ICommand PrintCommand
+        public Command PrintCommand
         {
             get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint)); }
         }
 
         private async Task ExecutePrintCommand()
         {
+            CanPrint = false;
             _printCommand.ChangeCanExecute();
 
             var employer = new Employer
@@ -93,11 +111,13 @@ namespace WcoeJobFairRegistration.ViewModels
                 LastName = LastName,
                 Organization = Organization,
                 Title = Title,
-                Hotel = Hotel,
-                NumberOfNights = int.Parse(NumberOfNights),
                 IsAlumni = IsAlumni,
                 CheckedInTime = DateTime.Now
             };
+
+            if (!string.IsNullOrWhiteSpace(Hotel)) employer.Hotel = Hotel;
+            if (!string.IsNullOrWhiteSpace(NumberOfNights)) employer.NumberOfNights = int.Parse(NumberOfNights);
+
             var result = await Task.Run(() => _printService.PrintEmployerLabel(employer));
 
             if (result)
@@ -115,10 +135,19 @@ namespace WcoeJobFairRegistration.ViewModels
             _printCommand.ChangeCanExecute();
         }
 
-        public bool CanPrint => (!string.IsNullOrWhiteSpace(FirstName) ||
-                                  string.IsNullOrWhiteSpace(LastName) ||
-                                  string.IsNullOrWhiteSpace(Organization) ||
-                                  string.IsNullOrWhiteSpace(Title));
+        private bool _canPrint = true;
+        public bool CanPrint
+        {
+            get
+            {
+                return _canPrint &&
+                       !(string.IsNullOrWhiteSpace(FirstName) ||
+                         string.IsNullOrWhiteSpace(LastName) ||
+                         string.IsNullOrWhiteSpace(Title) ||
+                         string.IsNullOrWhiteSpace(Organization));
+            }
+            set { SetProperty(ref _canPrint, value); }
+        }
 
         private void ClearData()
         {
@@ -129,6 +158,8 @@ namespace WcoeJobFairRegistration.ViewModels
             Hotel = string.Empty;
             NumberOfNights = string.Empty;
             IsAlumni = false;
+
+            CanPrint = true;
         }
     }
 }

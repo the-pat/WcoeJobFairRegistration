@@ -19,7 +19,7 @@ namespace WcoeJobFairRegistration.ViewModels
             _printService = app.PrintService;
 
             // TODO: Remove
-            _studentRepository.Load(@"C:\Users\souls\Downloads\students.csv");
+            _studentRepository.Load(@"C:\Users\patric\Desktop\students.csv");
         }
 
         private string _rNumber;

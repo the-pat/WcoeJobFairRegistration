@@ -22,15 +22,19 @@
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
+                    <RowDefinition />
                 </Grid.RowDefinitions>
                 <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
-                <TextBox x:Name="FirstName" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FirstName}"
+                <TextBox x:Name="FirstName" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Delay=500}"
                          Style="{StaticResource TextBoxStyle}" />
                 <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=LastName}" 
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Delay=500}" 
                          Style="{StaticResource TextBoxStyle}" />
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Organization:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Organization}"
+                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Organization, UpdateSourceTrigger=PropertyChanged, Delay=500}"
+                         Style="{StaticResource TextBoxStyle}" />
+                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Title:</Label>
+                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged, Delay=500}"
                          Style="{StaticResource TextBoxStyle}" />
             </Grid>
         </GroupBox>
@@ -56,7 +60,7 @@
                 <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Path=IsAlumni}" Style="{StaticResource CheckBoxStyle}" />
             </Grid>
         </GroupBox>
-        <Button Name="PrintButton"  Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}"
+        <Button Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}" IsEnabled="True"
                 Content="Print" />
     </StackPanel>
 </Page>

@@ -56,6 +56,7 @@ namespace WcoeJobFairRegistration.Services
                 // fill out the label information
                 label.SetObjectText("NAME", $"{employer.FirstName} {employer.LastName}");
                 label.SetObjectText("ORGANIZATION", employer.Organization);
+                label.SetObjectText("TITLE", employer.Title);
 
                 this.Print(label);
 
