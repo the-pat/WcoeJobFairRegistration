@@ -18,16 +18,22 @@
         <Style x:Key="ButtonStyle" TargetType="{x:Type Button}">
             <Setter Property="Margin" Value="10,25,10,25" />
         </Style>
-        
+
         <!-- Label style -->
         <Style x:Key="LabelStyle" TargetType="{x:Type Label}">
             <Setter Property="VerticalAlignment" Value="Center" />
             <Setter Property="HorizontalAlignment" Value="Right" />
             <Setter Property="FontFamily" Value="Trebuchet MS" />
         </Style>
-        
+
         <!-- TextBox style -->
         <Style x:Key="TextBoxStyle" TargetType="{x:Type TextBox}">
+            <Setter Property="Margin" Value="3,3,10,3" />
+            <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
+        </Style>
+
+        <!-- Checkbox style -->
+        <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
             <Setter Property="Margin" Value="3,3,10,3" />
             <Setter Property="VerticalContentAlignment" Value="Center"></Setter>
         </Style>

@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Input;
+using WcoeJobFairRegistration.DataAccess;
 using WcoeJobFairRegistration.Models;
 using WcoeJobFairRegistration.Services;
 
@@ -12,6 +13,7 @@ namespace WcoeJobFairRegistration.ViewModels
 {
     public class EmployerPageViewModel : ObservableObject
     {
+        private readonly IEmployerRepository _employerRepository;
         private readonly IPrintService _printService;
 
         public EmployerPageViewModel()
@@ -78,7 +80,7 @@ namespace WcoeJobFairRegistration.ViewModels
         private Command _printCommand;
         public ICommand PrintCommand
         {
-            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand())); }
+            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint)); }
         }
 
         private async Task ExecutePrintCommand()
@@ -100,18 +102,23 @@ namespace WcoeJobFairRegistration.ViewModels
 
             if (result)
             {
-                // TODO: Persist to file
+                await _employerRepository.Save(employer);
+                // TODO: Show appropriate message
             }
             else
             {
-                MessageBox.Show("An printer error has occured.\n\nPlease ask for assistance.",
-                    "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                var blocking = MessageBox.Show("An printer error has occured.\n\nPlease ask for assistance.",
+                            "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
             ClearData();
-
             _printCommand.ChangeCanExecute();
         }
+
+        public bool CanPrint => (!string.IsNullOrWhiteSpace(FirstName) ||
+                                  string.IsNullOrWhiteSpace(LastName) ||
+                                  string.IsNullOrWhiteSpace(Organization) ||
+                                  string.IsNullOrWhiteSpace(Title));
 
         private void ClearData()
         {

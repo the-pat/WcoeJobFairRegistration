@@ -12,7 +12,7 @@
         <Label Style="{StaticResource HeaderTextStyle}">
             Please enter your information
         </Label>
-        <GroupBox Header="Basic Info">
+        <GroupBox Header="Required Info">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="3*" />
@@ -34,8 +34,29 @@
                          Style="{StaticResource TextBoxStyle}" />
             </Grid>
         </GroupBox>
-        <Button Name="PrintButton" Style="{StaticResource ButtonStyle}">
-            Print
-        </Button>
+        <GroupBox Header="Other Info">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="3*" />
+                    <ColumnDefinition Width="8*" />
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                    <RowDefinition />
+                </Grid.RowDefinitions>
+                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">Hotel:</Label>
+                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Hotel}" 
+                         Style="{StaticResource TextBoxStyle}" />
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}"># of Nights:</Label>
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NumberOfNights}" PreviewTextInput="NumericTextValidation"
+                         Style="{StaticResource TextBoxStyle}" />
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Alumni:</Label>
+                <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Path=IsAlumni}" Style="{StaticResource CheckBoxStyle}" />
+            </Grid>
+        </GroupBox>
+        <Button Name="PrintButton"  Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}"
+                Content="Print" />
     </StackPanel>
 </Page>
