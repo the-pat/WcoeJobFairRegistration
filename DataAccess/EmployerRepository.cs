@@ -62,6 +62,7 @@ namespace WcoeJobFairRegistration.DataAccess
                     {
                         var content = await reader.ReadToEndAsync();
                         _employers = JsonConvert.DeserializeObject<List<Employer>>(content);
+                        _employers = _employers ?? new List<Employer>();
                     }
                 });
             }
