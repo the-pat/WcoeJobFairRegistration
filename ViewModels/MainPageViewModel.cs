@@ -13,7 +13,11 @@ namespace WcoeJobFairRegistration.ViewModels
                 return _gotoStudentPageCommand ?? (_gotoStudentPageCommand = new Command(() =>
                 {
                     GotoStudentPageCommand.ChangeCanExecute();
-                    (Application.Current as App).NavigationService.Navigate(new StudentPage());
+
+                    var app = (Application.Current as App);
+                    if (app.IsManualEntry) app.NavigationService.Navigate(new ManualStudentPage());
+                    else app.NavigationService.Navigate(new StudentPage());
+
                     GotoStudentPageCommand.ChangeCanExecute();
                 }));
             }
@@ -32,6 +36,7 @@ namespace WcoeJobFairRegistration.ViewModels
                 }));
             }
         }
+
         private Command _gotoAdminPageCommand;
         public Command GotoAdminPageCommand
         {

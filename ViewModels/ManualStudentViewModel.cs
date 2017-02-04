@@ -1,4 +1,7 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
 using WcoeJobFairRegistration.DataAccess;
@@ -7,12 +10,12 @@ using WcoeJobFairRegistration.Services;
 
 namespace WcoeJobFairRegistration.ViewModels
 {
-    public class StudentPageViewModel : ObservableObject
+    class ManualStudentViewModel : ObservableObject
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IPrintService _printService;
 
-        public StudentPageViewModel()
+        public ManualStudentViewModel()
         {
             App app = (Application.Current as App);
             _studentRepository = app.StudentRepository;
@@ -28,20 +31,19 @@ namespace WcoeJobFairRegistration.ViewModels
             get { return _rNumber; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if (value.Length != 8)
                 {
-                    SetProperty(ref _rNumber, string.Empty);
-                }
-                else if (value.Length == 15)
-                {
-                    SetProperty(ref _rNumber, value.Substring(1, 8));
-                    CardError = "";
-                    FindStudent();
+                    CardError = string.IsNullOrWhiteSpace(value) ? "" : "Please enter a valid RNumber";
+                    CanPrint = false;
                 }
                 else
                 {
-                    CardError = "Swipe your card again to retry.";
+                    CardError = string.Empty;
+                    CanPrint = true;
+                    if (CanPrint) PrintCommand.ChangeCanExecute();
                 }
+
+                SetProperty(ref _rNumber, value);
             }
         }
 
@@ -56,24 +58,28 @@ namespace WcoeJobFairRegistration.ViewModels
         public string FirstName
         {
             get { return _firstName; }
-            set { SetProperty(ref _firstName, value); }
+            set
+            {
+                SetProperty(ref _firstName, value);
+                if (CanPrint) PrintCommand.ChangeCanExecute();
+            }
         }
 
         private string _lastName;
         public string LastName
         {
             get { return _lastName; }
-            set { SetProperty(ref _lastName, value); }
+            set
+            {
+                SetProperty(ref _lastName, value);
+                if (CanPrint) PrintCommand.ChangeCanExecute();
+            }
         }
 
         private Command _printCommand;
         public Command PrintCommand
         {
-            get
-            {
-                return _printCommand ??
-                       (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint));
-            }
+            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint)); }
         }
 
         private async Task ExecutePrintCommand()
@@ -81,26 +87,19 @@ namespace WcoeJobFairRegistration.ViewModels
             CanPrint = false;
             _printCommand.ChangeCanExecute();
 
-            var student = new AttendingStudent
-            {
-                FirstName = FirstName,
-                LastName = LastName,
-                RNumber = int.Parse(RNumber),
-                CheckInTime = DateTime.Now
-            };
+            var student = new AttendingStudent { FirstName = FirstName, LastName = LastName, RNumber = int.Parse(RNumber), CheckInTime = DateTime.Now };
             var result = await Task.Run(() => _printService.PrintStudentLabel(student));
 
             if (result)
             {
                 await _studentRepository.Save(student);
-                // TODO: Show appropriate message and reset page
+                // TODO: Show appropriate message
             }
             else
             {
-                MessageBox.Show("A printer error has occured.\n\nPlease ask for assistance.",
+                var blocking = MessageBox.Show("A printer error has occured.\n\nPlease ask for assistance.",
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
-
 
             ClearData();
             _printCommand.ChangeCanExecute();
@@ -113,38 +112,21 @@ namespace WcoeJobFairRegistration.ViewModels
             set { SetProperty(ref _inputEnabled, value); }
         }
 
-        private bool _canPrint = false;
+        private bool _canPrint = true;
         public bool CanPrint
         {
-            get { return _canPrint; }
+            get
+            {
+                return _canPrint &&
+                       !(string.IsNullOrWhiteSpace(RNumber) ||
+                         string.IsNullOrWhiteSpace(FirstName) ||
+                         string.IsNullOrWhiteSpace(LastName));
+            }
             set { SetProperty(ref _canPrint, value); }
-        }
-
-        private async Task FindStudent()
-        {
-            InputEnabled = false;
-
-            var student = await _studentRepository.Find("R" + RNumber);
-            if (student == null)
-            {
-                // TODO: Show better error
-                MessageBox.Show("Student not found");
-                InputEnabled = true;
-            }
-            else
-            {
-                FirstName = student.FirstName;
-                LastName = student.LastName;
-
-                CanPrint = true;
-                PrintCommand.ChangeCanExecute();
-            }
         }
 
         private void ClearData()
         {
-            InputEnabled = true;
-
             RNumber = string.Empty;
             FirstName = string.Empty;
             LastName = string.Empty;

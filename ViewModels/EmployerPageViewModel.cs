@@ -98,7 +98,11 @@ namespace WcoeJobFairRegistration.ViewModels
         private Command _printCommand;
         public Command PrintCommand
         {
-            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint)); }
+            get
+            {
+                return _printCommand ??
+                       (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint));
+            }
         }
 
         private async Task ExecutePrintCommand()
@@ -129,7 +133,7 @@ namespace WcoeJobFairRegistration.ViewModels
             else
             {
                 var blocking = MessageBox.Show("An printer error has occured.\n\nPlease ask for assistance.",
-                            "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
+                    "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
             ClearData();

@@ -141,6 +141,9 @@
     <Compile Include="Pages\MainPage.xaml.cs">
       <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Pages\ManualStudentPage.xaml.cs">
+      <DependentUpon>ManualStudentPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Pages\StudentPage.xaml.cs">
       <DependentUpon>StudentPage.xaml</DependentUpon>
     </Compile>
@@ -149,6 +152,7 @@
     <Compile Include="ViewModels\AdminPageViewModel.cs" />
     <Compile Include="ViewModels\EmployerPageViewModel.cs" />
     <Compile Include="ViewModels\MainPageViewModel.cs" />
+    <Compile Include="ViewModels\ManualStudentViewModel.cs" />
     <Compile Include="ViewModels\StudentPageViewModel.cs" />
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -171,6 +175,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Pages\ManualStudentPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
