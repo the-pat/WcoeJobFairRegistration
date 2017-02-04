@@ -9,65 +9,65 @@ namespace WcoeJobFairRegistration.ViewModels
 {
     public class StudentPageViewModel : ObservableObject
     {
-        private readonly IStudentRepository _studentRepository;
-        private readonly IPrintService _printService;
+        protected readonly IStudentRepository studentRepository;
+        protected readonly IPrintService printService;
 
         public StudentPageViewModel()
         {
             App app = (Application.Current as App);
-            _studentRepository = app.StudentRepository;
-            _printService = app.PrintService;
+            studentRepository = app.StudentRepository;
+            printService = app.PrintService;
 
             // TODO: Remove
-            _studentRepository.Load(@"C:\Users\patri\Desktop\Students.csv");
+            studentRepository.Load(@"C:\Users\souls\Downloads\Students.csv");
         }
 
-        private string _rNumber;
-        public string RNumber
+        protected string rNumber;
+        public virtual string RNumber
         {
-            get { return _rNumber; }
+            get { return rNumber; }
             set
             {
-                if (string.IsNullOrWhiteSpace(value))
+                if(string.IsNullOrWhiteSpace(value))
                 {
-                    SetProperty(ref _rNumber, string.Empty);
+                    SetProperty(ref rNumber, string.Empty);
                 }
-                else if (value.Length == 15)
+                else if(value.Length == 15)
                 {
-                    SetProperty(ref _rNumber, value.Substring(1, 8));
-                    CardError = "";
+                    SetProperty(ref rNumber, value.Substring(1, 8));
+                    RNumberError = "";
                     FindStudent();
                 }
                 else
                 {
-                    CardError = "Swipe your card again to retry.";
+                    RNumberError = "Swipe your card again to retry.";
                 }
             }
         }
 
-        private string _cardError;
-        public string CardError
+        private string _rNumberError;
+        public virtual string RNumberError
         {
-            get { return _cardError; }
-            set { SetProperty(ref _cardError, value); }
+            get { return _rNumberError; }
+            set { SetProperty(ref _rNumberError, value); }
         }
 
         private string _firstName;
-        public string FirstName
+        public virtual string FirstName
         {
             get { return _firstName; }
             set { SetProperty(ref _firstName, value); }
         }
 
         private string _lastName;
-        public string LastName
+        public virtual string LastName
         {
             get { return _lastName; }
             set { SetProperty(ref _lastName, value); }
         }
 
         private Command _printCommand;
-        public Command PrintCommand
+        public virtual Command PrintCommand
         {
             get
             {
@@ -79,20 +79,19 @@ namespace WcoeJobFairRegistration.ViewModels
         private async Task ExecutePrintCommand()
         {
             CanPrint = false;
-            _printCommand.ChangeCanExecute();
 
             var student = new AttendingStudent
             {
                 FirstName = FirstName,
                 LastName = LastName,
-                RNumber = int.Parse(RNumber),
+                RNumber = RNumber,
                 CheckInTime = DateTime.Now
             };
-            var result = await Task.Run(() => _printService.PrintStudentLabel(student));
+            var result = await Task.Run(() => printService.PrintStudentLabel(student));
 
-            if (result)
+            if(result)
             {
-                await _studentRepository.Save(student);
+                await studentRepository.Save(student);
                 // TODO: Show appropriate message and reset page
             }
             else
@@ -101,31 +100,42 @@ namespace WcoeJobFairRegistration.ViewModels
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
-
-            ClearData();
-            _printCommand.ChangeCanExecute();
+            Reset();
         }
 
         private bool _inputEnabled = true;
-        public bool InputEnabled
+        public virtual bool InputEnabled
         {
             get { return _inputEnabled; }
             set { SetProperty(ref _inputEnabled, value); }
         }
 
         private bool _canPrint = false;
-        public bool CanPrint
+        public virtual bool CanPrint
         {
             get { return _canPrint; }
-            set { SetProperty(ref _canPrint, value); }
+            set
+            {
+                if(SetProperty(ref _canPrint, value))
+                {
+                    PrintCommand.ChangeCanExecute();
+                }
+            }
+        }
+
+        private bool _shouldFocusOnRNumber = true;
+        public bool ShouldFocusOnRNumber
+        {
+            get { return _shouldFocusOnRNumber; }
+            set { SetProperty(ref _shouldFocusOnRNumber, value); }
         }
 
         private async Task FindStudent()
         {
             InputEnabled = false;
 
-            var student = await _studentRepository.Find("R" + RNumber);
-            if (student == null)
+            var student = await studentRepository.Find("R" + RNumber);
+            if(student == null)
             {
                 // TODO: Show better error
                 MessageBox.Show("Student not found");
@@ -137,19 +147,22 @@ namespace WcoeJobFairRegistration.ViewModels
                 LastName = student.LastName;
 
                 CanPrint = true;
-                PrintCommand.ChangeCanExecute();
             }
         }
 
-        private void ClearData()
+        protected virtual void Reset()
         {
-            InputEnabled = true;
-
             RNumber = string.Empty;
             FirstName = string.Empty;
             LastName = string.Empty;
 
-            CanPrint = true;
+            InputEnabled = true;
+            CanPrint = false;
+
+            // NECESSARY: just setting to true would not trigger the notification
+            // since it's value is unchanged (originally true) due to the way that SetProperty works
+            ShouldFocusOnRNumber = false;
+            ShouldFocusOnRNumber = true;
         }
     }
 }

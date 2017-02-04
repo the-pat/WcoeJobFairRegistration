@@ -4,7 +4,7 @@ namespace WcoeJobFairRegistration.Models
 {
     public class AttendingStudent
     {
-        public int RNumber { get; set; }
+        public string RNumber { get; set; }
 
         public string FirstName { get; set; }
 

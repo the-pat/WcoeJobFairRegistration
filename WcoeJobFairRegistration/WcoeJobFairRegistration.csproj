@@ -128,6 +128,7 @@
     <Compile Include="DataAccess\IStudentRepository.cs" />
     <Compile Include="DataAccess\StudentRepository.cs" />
     <Compile Include="Infrastructure\Command.cs" />
+    <Compile Include="Controls\FocusTextBox.cs" />
     <Compile Include="Infrastructure\ObservableObject.cs" />
     <Compile Include="Models\Employer.cs" />
     <Compile Include="Models\AttendingStudent.cs" />
