@@ -10,7 +10,8 @@
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid>
             <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}"></CheckBox>
-            <Button Content="File Input" Style="{StaticResource ButtonStyle}" Command="{Binding FileDialogCommand}"></Button>
+            <Button Content="File Input CSV" Style="{StaticResource ButtonStyle}" Command="{Binding CSVFileDialogCommand}"></Button>
+            <Button Content="File Ouput CSV" Style="{StaticResource ButtonStyle}" Command="{Binding }" Margin="10,45,10,5"></Button>
         </Grid>
     </StackPanel>
 </Page>

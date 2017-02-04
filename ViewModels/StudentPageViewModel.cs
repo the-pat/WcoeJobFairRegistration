@@ -24,7 +24,7 @@ namespace WcoeJobFairRegistration.ViewModels
                 CanPrint = true;
             }
             // TODO: Remove
-            _studentRepository.Load(_app.FilePath);
+            _studentRepository.Load(_app.csv_FilePath);
         }
 
         private string _rNumber;

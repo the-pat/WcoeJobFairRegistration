@@ -23,32 +23,57 @@ namespace WcoeJobFairRegistration.ViewModels
             set { _app.IsManualEntry = value; }
         }
 
-        public string FilePath
+        public string csv_FilePath
         {
-            get { return _app.FilePath; }
-            set { _app.FilePath = value; }
+            get { return _app.csv_FilePath; }
+            set { _app.csv_FilePath = value; }
         }
 
+        public string StudentStashPath
+        {
+            get { return _app.StudentStashPath; }
+            set { _app.StudentStashPath = value; }
+        }
 
-
-        private Command _fileDialogCommand;
-        public Command FileDialogCommand
+        private Command _csvfileDialogCommand;
+        public Command CSVFileDialogCommand
         {
             get
             {
-                return _fileDialogCommand ?? (_fileDialogCommand = new Command(() =>
+                return _csvfileDialogCommand ?? (_csvfileDialogCommand = new Command(() =>
                 {
                     OpenFileDialog file = new OpenFileDialog();
                     file.ShowDialog();
                     if (file.CheckPathExists)                    
                     {
-                        _app.FilePath = file.FileName;
+                        csv_FilePath = file.FileName;
                     }
                     else
                     {
                         MessageBox.Show("Error on File selection");
                     }
                     
+                }));
+            }
+        }
+        private Command _studentFileDialogCommand;
+        public Command StudentFileDialogCommand
+        {
+            get
+            {
+                return _studentFileDialogCommand ?? (_studentFileDialogCommand = new Command(() =>
+                {
+                    OpenFileDialog file = new OpenFileDialog();
+                    file.ShowDialog();
+                    if (file.CheckPathExists)
+                    {
+                        StudentStashPath = file.FileName;
+                    }
+                    else
+                    {
+                        MessageBox.Show("Error on File selection");
+                    }
+
                 }));
             }
         }
