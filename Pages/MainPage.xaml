@@ -24,6 +24,6 @@
         </Label>
         <Button Name="StudentButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding GotoStudentPageCommand}" >Student</Button>
         <Button Name="EmployerButton" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding GotoEmployeePageCommand}">Employer</Button>
-        <Button Name="AdminButton" Grid.Row="3" Grid.Column="1" Style="{StaticResource ButtonStyle}" Visibility="Hidden" IsEnabled="False">Admin</Button>
+        <Button Name="AdminButton" Grid.Row="3" Grid.Column="1" Style="{StaticResource ButtonStyle}">Settings</Button>
     </Grid>
 </Page>
