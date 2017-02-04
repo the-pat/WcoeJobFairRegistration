@@ -45,7 +45,7 @@ namespace WcoeJobFairRegistration.ViewModels
             }
         }
 
-        private string _rNumberError;
+        private string _rNumberError = "";
         public virtual string RNumberError
         {
             get { return _rNumberError; }
@@ -163,6 +163,8 @@ namespace WcoeJobFairRegistration.ViewModels
             // since it's value is unchanged (originally true) due to the way that SetProperty works
             ShouldFocusOnRNumber = false;
             ShouldFocusOnRNumber = true;
+
+            RNumberError = "";
         }
     }
 }
