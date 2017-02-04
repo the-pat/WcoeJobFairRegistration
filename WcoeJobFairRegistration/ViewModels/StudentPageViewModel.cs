@@ -11,20 +11,15 @@ namespace WcoeJobFairRegistration.ViewModels
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IPrintService _printService;
-        private readonly App _app;
 
         public StudentPageViewModel()
         {
-            _app = (Application.Current as App);
-            _studentRepository = _app.StudentRepository;
-            _printService = _app.PrintService;
-            if (_app.IsManualEntry)
-            {
-                NameInputEnabled = true;
-                CanPrint = true;
-            }
+            App app = (Application.Current as App);
+            _studentRepository = app.StudentRepository;
+            _printService = app.PrintService;
+
             // TODO: Remove
-            _studentRepository.Load(_app.csv_FilePath);
+            _studentRepository.Load(app.csv_FilePath);
         }
 
         private string _rNumber;
@@ -33,12 +28,15 @@ namespace WcoeJobFairRegistration.ViewModels
             get { return _rNumber; }
             set
             {
-                if(value.Length == 15)
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    SetProperty(ref _rNumber, string.Empty);
+                }
+                else if (value.Length == 15)
                 {
                     SetProperty(ref _rNumber, value.Substring(1, 8));
                     CardError = "";
-                    if(_app.IsManualEntry == false) { FindStudent(); }
-                    
+                    FindStudent();
                 }
                 else
                 {
@@ -71,17 +69,28 @@ namespace WcoeJobFairRegistration.ViewModels
         private Command _printCommand;
         public Command PrintCommand
         {
-            get { return _printCommand ?? (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint)); }
+            get
+            {
+                return _printCommand ??
+                       (_printCommand = new Command(async () => await ExecutePrintCommand(), () => CanPrint));
+            }
         }
 
         private async Task ExecutePrintCommand()
         {
+            CanPrint = false;
             _printCommand.ChangeCanExecute();
 
-            var student = new AttendingStudent { FirstName = FirstName, LastName = LastName, RNumber = int.Parse(RNumber) };
+            var student = new AttendingStudent
+            {
+                FirstName = FirstName,
+                LastName = LastName,
+                RNumber = int.Parse(RNumber),
+                CheckInTime = DateTime.Now
+            };
             var result = await Task.Run(() => _printService.PrintStudentLabel(student));
 
-            if(result)
+            if (result)
             {
                 await _studentRepository.Save(student);
                 // TODO: Show appropriate message and reset page
@@ -92,20 +101,16 @@ namespace WcoeJobFairRegistration.ViewModels
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
-            _printCommand.ChangeCanExecute();            
-        }    
+
+            ClearData();
+            _printCommand.ChangeCanExecute();
+        }
 
         private bool _inputEnabled = true;
         public bool InputEnabled
         {
             get { return _inputEnabled; }
             set { SetProperty(ref _inputEnabled, value); }
-        }
-        private bool _nameInputEnabled = false;
-        public bool NameInputEnabled
-        {
-            get { return _nameInputEnabled; }
-            set { SetProperty(ref _nameInputEnabled, value); }
         }
 
         private bool _canPrint = false;
@@ -120,7 +125,7 @@ namespace WcoeJobFairRegistration.ViewModels
             InputEnabled = false;
 
             var student = await _studentRepository.Find("R" + RNumber);
-            if(student == null)
+            if (student == null)
             {
                 // TODO: Show better error
                 MessageBox.Show("Student not found");
@@ -134,6 +139,17 @@ namespace WcoeJobFairRegistration.ViewModels
                 CanPrint = true;
                 PrintCommand.ChangeCanExecute();
             }
+        }
+
+        private void ClearData()
+        {
+            InputEnabled = true;
+
+            RNumber = string.Empty;
+            FirstName = string.Empty;
+            LastName = string.Empty;
+
+            CanPrint = true;
         }
     }
 }
