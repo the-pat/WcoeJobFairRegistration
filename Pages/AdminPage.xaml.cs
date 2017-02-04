@@ -12,6 +12,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using WcoeJobFairRegistration.ViewModels;
 
 namespace WcoeJobFairRegistration.Pages
 {
@@ -23,6 +24,7 @@ namespace WcoeJobFairRegistration.Pages
         public AdminPage()
         {
             InitializeComponent();
+            DataContext = new AdminPageViewModel();
         }
     }
 }

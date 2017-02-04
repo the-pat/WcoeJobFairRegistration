@@ -32,5 +32,18 @@ namespace WcoeJobFairRegistration.ViewModels
                 }));
             }
         }
+        private Command _gotoAdminPageCommand;
+        public Command GotoAdminPageCommand
+        {
+            get
+            {
+                return _gotoAdminPageCommand ?? (_gotoAdminPageCommand = new Command(() =>
+                {
+                    GotoAdminPageCommand.ChangeCanExecute();
+                    (Application.Current as App).NavigationService.Navigate(new AdminPage());
+                    GotoAdminPageCommand.ChangeCanExecute();
+                }));
+            }
+        }
     }
 }

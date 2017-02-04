@@ -47,7 +47,7 @@ namespace WcoeJobFairRegistration.DataAccess
                     {
                         content = await reader.ReadToEndAsync();
                     }
-                    var lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Skip(1);
+                    var lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     _jobGridStudents = lines.Select(line =>
                     {
                         var parts = line.Split(',');
