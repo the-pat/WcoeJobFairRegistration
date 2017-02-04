@@ -1,10 +1,12 @@
-﻿using Microsoft.Win32;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.Windows;
+using System.Windows.Forms;
+using Application = System.Windows.Application;
+using MessageBox = System.Windows.MessageBox;
+using OpenFileDialog = Microsoft.Win32.OpenFileDialog;
 
 namespace WcoeJobFairRegistration.ViewModels
 {
@@ -23,57 +25,61 @@ namespace WcoeJobFairRegistration.ViewModels
             set { _app.IsManualEntry = value; }
         }
 
-        public string csv_FilePath
+        public string JobGridCsvFilePath
         {
-            get { return _app.csv_FilePath; }
-            set { _app.csv_FilePath = value; }
+            get { return _app.StudentCsvFilePath; }
+            set { _app.StudentCsvFilePath = value; }
         }
 
-        public string StudentStashPath
+        public string ReportingFolderPath
         {
-            get { return _app.StudentStashPath; }
-            set { _app.StudentStashPath = value; }
+            get { return _app.ReportingFolderPath; }
+            set { _app.ReportingFolderPath = value; }
         }
 
         private Command _csvfileDialogCommand;
-        public Command CSVFileDialogCommand
+        public Command CsvFileDialogCommand
         {
             get
             {
                 return _csvfileDialogCommand ?? (_csvfileDialogCommand = new Command(() =>
                 {
-                    OpenFileDialog file = new OpenFileDialog();
-                    file.ShowDialog();
-                    if (file.CheckPathExists)                    
+                    var file = new OpenFileDialog
                     {
-                        csv_FilePath = file.FileName;
+                        Filter = "CSV files (*.csv)|*.csv|All files (*.*)|*.*"
+                    };
+                    file.ShowDialog();
+
+                    if (file.CheckPathExists)
+                    {
+                        JobGridCsvFilePath = file.FileName;
                     }
                     else
                     {
                         MessageBox.Show("Error on File selection");
                     }
-                    
                 }));
             }
         }
-        private Command _studentFileDialogCommand;
-        public Command StudentFileDialogCommand
+
+        private Command _reportingFolderDialogCommand;
+        public Command ReportingFolderDialogCommand
         {
             get
             {
-                return _studentFileDialogCommand ?? (_studentFileDialogCommand = new Command(() =>
+                return _reportingFolderDialogCommand ?? (_reportingFolderDialogCommand = new Command(() =>
                 {
-                    OpenFileDialog file = new OpenFileDialog();
-                    file.ShowDialog();
-                    if (file.CheckPathExists)
+                    var folder = new FolderBrowserDialog { ShowNewFolderButton = true };
+
+                    folder.ShowDialog();
+                    if (!string.IsNullOrWhiteSpace(folder.SelectedPath))
                     {
-                        StudentStashPath = file.FileName;
+                        ReportingFolderPath = folder.SelectedPath;
                     }
                     else
                     {
-                        MessageBox.Show("Error on File selection");
+                        MessageBox.Show("Error on Folder selection");
                     }
-
                 }));
             }
         }

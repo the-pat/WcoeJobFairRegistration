@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Windows;
 using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
@@ -11,13 +12,15 @@ namespace WcoeJobFairRegistration.DataAccess
     public class EmployerRepository : IEmployerRepository
     {
         private bool _isInitialized = false;
-        private static string EmployerFile = "eoc_employers.json";
+        private readonly string EmployerFile = "eoc_employers.json";
 
         private List<Employer> _employers;
 
         public EmployerRepository()
         {
             _employers = new List<Employer>();
+
+            EmployerFile = Path.Combine((Application.Current as App).ReportingFolderPath, EmployerFile);
         }
 
         public Task<bool> Save(Employer employer)
