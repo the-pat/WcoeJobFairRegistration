@@ -23,8 +23,14 @@ namespace WcoeJobFairRegistration.Pages
 
         private void NumericTextValidation(object sender, TextCompositionEventArgs e)
         {
-            var regex = new Regex("[^0-9]+");
+            var regex = new Regex(@"[^\d]");
             e.Handled = regex.IsMatch(e.Text);
+        }
+
+        private void PreventWhitespace(object sender, KeyEventArgs e)
+        {
+            if (e.Key == Key.Space) e.Handled = true;
+            base.OnPreviewKeyDown(e);
         }
     }
 }
