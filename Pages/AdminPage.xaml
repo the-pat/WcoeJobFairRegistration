@@ -10,6 +10,7 @@
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid>
             <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}"></CheckBox>
+            <Button Content="File Input" Style="{StaticResource ButtonStyle}" Command="{Binding FileDialogCommand}"></Button>
         </Grid>
     </StackPanel>
 </Page>
