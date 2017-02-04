@@ -10,8 +10,8 @@ namespace WcoeJobFairRegistration.Pages
     {
         public StudentPage()
         {
-            InitializeComponent();
             DataContext = new StudentPageViewModel();
+            InitializeComponent();
         }
     }
 }
