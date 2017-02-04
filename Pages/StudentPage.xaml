@@ -30,10 +30,10 @@
                      Style="{StaticResource TextBoxStyle}" IsEnabled="{Binding InputEnabled}" />
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
-            <TextBox Text="{Binding Path=FirstName}" IsEnabled="False" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox Text="{Binding Path=FirstName}"  IsEnabled="{Binding NameInputEnabled}" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
 
             <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
-            <TextBox Text="{Binding Path=LastName}" IsEnabled="False" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+            <TextBox Text="{Binding Path=LastName}"  IsEnabled="{Binding NameInputEnabled}" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
 
         </Grid>
         <Button Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}"

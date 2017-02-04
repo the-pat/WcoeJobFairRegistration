@@ -9,7 +9,7 @@
       Title="AdminPage">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid>
-            <CheckBox Content="Allow Manual Student Entry" Checked="{Binding Path=IsManualEntry}"></CheckBox>
+            <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}"></CheckBox>
         </Grid>
     </StackPanel>
 </Page>

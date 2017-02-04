@@ -11,15 +11,20 @@ namespace WcoeJobFairRegistration.ViewModels
     {
         private readonly IStudentRepository _studentRepository;
         private readonly IPrintService _printService;
+        private readonly App _app;
 
         public StudentPageViewModel()
         {
-            App app = (Application.Current as App);
-            _studentRepository = app.StudentRepository;
-            _printService = app.PrintService;
-
+            _app = (Application.Current as App);
+            _studentRepository = _app.StudentRepository;
+            _printService = _app.PrintService;
+            if (_app.IsManualEntry)
+            {
+                NameInputEnabled = true;
+                CanPrint = true;
+            }
             // TODO: Remove
-            _studentRepository.Load(@"C:\Users\patri\Desktop\Students.csv");
+            _studentRepository.Load(@"C:\Users\ryan\Desktop\Students.csv");
         }
 
         private string _rNumber;
@@ -32,7 +37,8 @@ namespace WcoeJobFairRegistration.ViewModels
                 {
                     SetProperty(ref _rNumber, value.Substring(1, 8));
                     CardError = "";
-                    FindStudent();
+                    if(_app.IsManualEntry == false) { FindStudent(); }
+                    
                 }
                 else
                 {
@@ -82,7 +88,7 @@ namespace WcoeJobFairRegistration.ViewModels
             }
             else
             {
-                MessageBox.Show("An printer error has occured.\n\nPlease ask for assistance.",
+                MessageBox.Show("A printer error has occured.\n\nPlease ask for assistance.",
                     "Printer Error!", MessageBoxButton.OK, MessageBoxImage.Error, MessageBoxResult.OK);
             }
 
@@ -94,6 +100,12 @@ namespace WcoeJobFairRegistration.ViewModels
         {
             get { return _inputEnabled; }
             set { SetProperty(ref _inputEnabled, value); }
+        }
+        private bool _nameInputEnabled = false;
+        public bool NameInputEnabled
+        {
+            get { return _nameInputEnabled; }
+            set { SetProperty(ref _nameInputEnabled, value); }
         }
 
         private bool _canPrint = false;
