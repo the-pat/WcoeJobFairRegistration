@@ -54,7 +54,7 @@
                 <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Hotel}" 
                          Style="{StaticResource TextBoxStyle}" />
                 <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}"># of Nights:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NumberOfNights}" PreviewTextInput="NumericTextValidation"
+                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NumberOfNights}" PreviewKeyDown="PreventWhitespace" PreviewTextInput="NumericTextValidation"
                          Style="{StaticResource TextBoxStyle}" />
                 <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Alumni:</Label>
                 <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Path=IsAlumni}" Style="{StaticResource CheckBoxStyle}" />

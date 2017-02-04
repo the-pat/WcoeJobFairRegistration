@@ -9,8 +9,8 @@ namespace WcoeJobFairRegistration.ViewModels
 {
     public class StudentPageViewModel : ObservableObject
     {
-        IStudentRepository _studentRepository;
-        IPrintService _printService;
+        private readonly IStudentRepository _studentRepository;
+        private readonly IPrintService _printService;
 
         public StudentPageViewModel()
         {
@@ -19,7 +19,7 @@ namespace WcoeJobFairRegistration.ViewModels
             _printService = app.PrintService;
 
             // TODO: Remove
-            _studentRepository.Load(@"C:\Users\patric\Desktop\students.csv");
+            _studentRepository.Load(@"C:\Users\patri\Desktop\Students.csv");
         }
 
         private string _rNumber;

@@ -43,20 +43,20 @@ namespace WcoeJobFairRegistration.DataAccess
             });
         }
 
-        public async Task EnsureInitialized()
+        public Task EnsureInitialized()
         {
-            if(!_isInitialized)
+            if (!_isInitialized)
             {
-                await Initialize();
-                _isInitialized = true;
+                return Initialize();
             }
+            return Task.FromResult(false);
         }
 
-        private async Task Initialize()
+        private Task Initialize()
         {
             try
             {
-                await Task.Run(async () =>
+                return Task.Run(async () =>
                 {
                     using(var reader = new StreamReader(new FileStream(EmployerFile, FileMode.Create)))
                     {
@@ -69,6 +69,7 @@ namespace WcoeJobFairRegistration.DataAccess
             catch(Exception ex)
             {
                 Trace.WriteLine("Error initializing Teacher Repository\nMessage: {0}", ex.Message);
+                return Task.FromResult(false);
             }
         }
     }

@@ -18,8 +18,9 @@ namespace WcoeJobFairRegistration.ViewModels
 
         public EmployerPageViewModel()
         {
-            _employerRepository = new EmployerRepository();
-            _printService = new DymoService();
+            var app = (Application.Current as App);
+            _employerRepository = app.EmployeeRepository;
+            _printService = app.PrintService;
         }
 
         private string _firstName;
