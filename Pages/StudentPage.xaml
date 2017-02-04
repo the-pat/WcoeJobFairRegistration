@@ -10,7 +10,7 @@
       Title="StudentPage">
 
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Grid.Row="1" Style="{StaticResource HeaderTextStyle}">
+        <Label Style="{StaticResource HeaderTextStyle}">
             Swipe your student ID
         </Label>
         <Grid>
@@ -27,7 +27,7 @@
 
             <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource LabelStyle}">R#</Label>
             <TextBox x:Name="rNumber" Grid.Column="1" Grid.Row="0" Text="{Binding Path=RNumber, UpdateSourceTrigger=PropertyChanged, Delay=500}"
-                     Style="{StaticResource TextBoxStyle}" IsEnabled="{Binding InputEnabled}"/>
+                     Style="{StaticResource TextBoxStyle}" IsEnabled="{Binding InputEnabled}" />
 
             <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
             <TextBox Text="{Binding Path=FirstName}" IsEnabled="False" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>

@@ -40,6 +40,8 @@ namespace WcoeJobFairRegistration
             get { return _printService.Value; }
         }
 
+        public bool IsManualEntry { get; set; }
+
         private NavigationService _navigationService;
         public NavigationService NavigationService
         {

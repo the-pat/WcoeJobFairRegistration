@@ -7,7 +7,9 @@
       mc:Ignorable="d" 
       d:DesignHeight="300" d:DesignWidth="300"
       Title="AdminPage">
-    <Grid>
-        
-    </Grid>
+    <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+        <Grid>
+            <CheckBox Content="Allow Manual Student Entry" Checked="{Binding Path=IsManualEntry}"></CheckBox>
+        </Grid>
+    </StackPanel>
 </Page>
