@@ -9,7 +9,28 @@
       Title="AdminPage">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
         <Grid>
-            <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}"></CheckBox>
+            <Grid.RowDefinitions>
+                <RowDefinition />
+                <RowDefinition />
+                <RowDefinition />
+            </Grid.RowDefinitions>
+            <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}" Grid.Row="0" Margin="10,0,0,0" />
+            <WrapPanel Grid.Row="1" Margin="5">
+                <TextBlock IsEnabled="False" Text="{Binding Path=JobGridCsvFilePath, UpdateSourceTrigger=PropertyChanged, Delay=100}" MinWidth="100" HorizontalAlignment="Left" Width="150" Margin="5,0" >
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+                    </TextBlock.Background>
+                </TextBlock>
+                <Button Content="Import Student CSV" Command="{Binding CsvFileDialogCommand}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" ToolTip="Select student CSV from Job Grid" Padding="5" />
+            </WrapPanel>
+            <WrapPanel Grid.Row="2" Margin="5">
+                <TextBlock Text="{Binding Path=ReportingFolderPath, UpdateSourceTrigger=PropertyChanged, Delay=100}" IsEnabled="False" MinWidth="100" HorizontalAlignment="Left" Width="150" Margin="5,0" >
+                    <TextBlock.Background>
+                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
+                    </TextBlock.Background>
+                </TextBlock>
+                <Button Content="Reporting Directory" Command="{Binding ReportingFolderDialogCommand}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" ToolTip="Where do you want to save the attendance information?" Padding="5" />
+            </WrapPanel>
         </Grid>
     </StackPanel>
 </Page>

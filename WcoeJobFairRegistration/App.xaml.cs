@@ -49,6 +49,9 @@ namespace WcoeJobFairRegistration
             get { return _navigationService; }
         }
 
+        public string StudentCsvFilePath { get; internal set; }
+        public string ReportingFolderPath { get; internal set; }
+
         protected override void OnNavigated(NavigationEventArgs e)
         {
             base.OnNavigated(e);

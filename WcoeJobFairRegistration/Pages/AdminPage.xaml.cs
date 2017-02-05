@@ -23,8 +23,8 @@ namespace WcoeJobFairRegistration.Pages
     {
         public AdminPage()
         {
-            InitializeComponent();
             DataContext = new AdminPageViewModel();
+            InitializeComponent();
         }
     }
 }

@@ -3,7 +3,9 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Threading.Tasks;
+using System.Windows;
 using Newtonsoft.Json;
 using WcoeJobFairRegistration.Models;
 
@@ -13,8 +15,8 @@ namespace WcoeJobFairRegistration.DataAccess
     {
         private bool _isInitialized = false;
 
-        private static string JobGridStudentFile = "eoc_job-grid.json";
-        private static string AttendingStudentFile = "eoc_attending.json";
+        private readonly string JobGridStudentFile = "eoc_job-grid.json";
+        private readonly string AttendingStudentFile = "eoc_attending.json";
 
         private List<AttendingStudent> _attendingStudents;
         private List<JobGridStudent> _jobGridStudents;
@@ -23,6 +25,10 @@ namespace WcoeJobFairRegistration.DataAccess
         {
             _attendingStudents = new List<AttendingStudent>();
             _jobGridStudents = new List<JobGridStudent>();
+
+            App app = (Application.Current as App);
+            JobGridStudentFile = Path.Combine(app.ReportingFolderPath, JobGridStudentFile);
+            AttendingStudentFile = Path.Combine(app.ReportingFolderPath, AttendingStudentFile);
         }
 
         public async Task<JobGridStudent> Find(string rNumber)
