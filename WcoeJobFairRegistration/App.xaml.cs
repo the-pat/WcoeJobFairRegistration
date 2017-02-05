@@ -23,10 +23,7 @@ namespace WcoeJobFairRegistration
             result.EnsureInitialized().Wait();
             return result;
         }, true);
-        public IStudentRepository StudentRepository
-        {
-            get { return _studentRepository.Value; }
-        }
+        public IStudentRepository StudentRepository => _studentRepository.Value;
 
         private Lazy<IEmployerRepository> _employeeRepository = new Lazy<IEmployerRepository>(() =>
         {
@@ -34,25 +31,14 @@ namespace WcoeJobFairRegistration
             result.EnsureInitialized().Wait();
             return result;
         }, true);
-        public IEmployerRepository EmployerRepository
-        {
-            get { return _employeeRepository.Value; }
-        }
+        public IEmployerRepository EmployerRepository => _employeeRepository.Value;
 
         private Lazy<IPrintService> _printService = new Lazy<IPrintService>(() => new DymoService(), true);
-        public IPrintService PrintService
-        {
-            get { return _printService.Value; }
-        }
+        public IPrintService PrintService => _printService.Value;
 
         public bool IsManualEntry { get; set; }
 
-        private NavigationService _navigationService;
-        public NavigationService NavigationService
-        {
-            private set { _navigationService = value; }
-            get { return _navigationService; }
-        }
+        public NavigationService NavigationService { get; private set; }
 
         public string StudentCsvFilePath { get; internal set; } = "";
         public string ReportingFolderPath { get; internal set; } = "";

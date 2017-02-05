@@ -11,19 +11,13 @@
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
             <ColumnDefinition />
-            <ColumnDefinition />
         </Grid.ColumnDefinitions>
-        <Grid.RowDefinitions>
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
-        <Label Grid.ColumnSpan="3" Style="{StaticResource HeaderTextStyle}">
-            Texas Tech Engineering Job Fair
-        </Label>
-        <Button Name="StudentButton" Grid.Row="1" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding GotoStudentPageCommand}" >Student</Button>
-        <Button Name="EmployerButton" Grid.Row="2" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding GotoEmployeePageCommand}">Employer</Button>
-        <Button Name="AdminButton" Grid.Row="3" Grid.Column="1" Style="{StaticResource ButtonStyle}" Command="{Binding GotoAdminPageCommand}">Settings</Button>
+        <Image Source="..\Images\campus1.jpg" Stretch="UniformToFill" Grid.Column="0" />
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Content="Texas Tech Engineering Job Fair" Style="{StaticResource HeaderTextStyle}" />
+            <Button Content="Student" Style="{StaticResource ButtonStyle}" Command="{Binding GotoStudentPageCommand}" MinWidth="100" />
+            <Button Content="Employer" Style="{StaticResource ButtonStyle}" Command="{Binding GotoEmployeePageCommand}" />
+            <Button Content="Settings" Style="{StaticResource ButtonStyle}" Command="{Binding GotoAdminPageCommand}" />
+        </StackPanel>
     </Grid>
 </Page>

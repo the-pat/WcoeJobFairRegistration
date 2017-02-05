@@ -17,8 +17,10 @@ namespace WcoeJobFairRegistration.Pages
     {
         public EmployerPage()
         {
-            InitializeComponent();
             DataContext = new EmployerPageViewModel();
+            InitializeComponent();
+
+
         }
 
         private void NumericTextValidation(object sender, TextCompositionEventArgs e)

@@ -8,59 +8,67 @@
       d:DesignHeight="400" d:DesignWidth="300"
       FocusManager.FocusedElement="{Binding ElementName=FirstName}"
       Title="EmployerPage">
-    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Label Style="{StaticResource HeaderTextStyle}">
-            Please enter your information
-        </Label>
-        <GroupBox Header="Required Info">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="8*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
-                <TextBox x:Name="FirstName" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Delay=500}"
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition />
+            <ColumnDefinition />
+        </Grid.ColumnDefinitions>
+        <Image Source="..\Images\campus3.jpg" Stretch="UniformToFill" Grid.Column="0" />
+        <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Label Style="{StaticResource HeaderTextStyle}">
+                Please enter your information
+            </Label>
+            <GroupBox Header="Required Info">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="8*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
+                    <TextBox x:Name="FirstName" Grid.Row="0" Grid.Column="1" Text="{Binding Path=FirstName, UpdateSourceTrigger=PropertyChanged, Delay=500}"
                          Style="{StaticResource TextBoxStyle}" />
-                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Delay=500}" 
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=LastName, UpdateSourceTrigger=PropertyChanged, Delay=500}" 
                          Style="{StaticResource TextBoxStyle}" />
-                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Organization:</Label>
-                <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Organization, UpdateSourceTrigger=PropertyChanged, Delay=500}"
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Organization:</Label>
+                    <TextBox Grid.Row="2" Grid.Column="1" Text="{Binding Path=Organization, UpdateSourceTrigger=PropertyChanged, Delay=500}"
                          Style="{StaticResource TextBoxStyle}" />
-                <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Title:</Label>
-                <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged, Delay=500}"
+                    <Label Grid.Row="3" Grid.Column="0" Style="{StaticResource LabelStyle}">Title:</Label>
+                    <TextBox Grid.Row="3" Grid.Column="1" Text="{Binding Path=Title, UpdateSourceTrigger=PropertyChanged, Delay=500}"
                          Style="{StaticResource TextBoxStyle}" />
-            </Grid>
-        </GroupBox>
-        <GroupBox Header="Other Info">
-            <Grid>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="8*" />
-                </Grid.ColumnDefinitions>
-                <Grid.RowDefinitions>
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                    <RowDefinition />
-                </Grid.RowDefinitions>
-                <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">Hotel:</Label>
-                <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Hotel}" 
+                </Grid>
+            </GroupBox>
+            <GroupBox Header="Other Info">
+                <Grid>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="3*" />
+                        <ColumnDefinition Width="8*" />
+                    </Grid.ColumnDefinitions>
+                    <Grid.RowDefinitions>
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                        <RowDefinition />
+                    </Grid.RowDefinitions>
+                    <Label Grid.Row="0" Grid.Column="0" Style="{StaticResource LabelStyle}">Hotel:</Label>
+                    <TextBox Grid.Row="0" Grid.Column="1" Text="{Binding Path=Hotel}" 
                          Style="{StaticResource TextBoxStyle}" />
-                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}"># of Nights:</Label>
-                <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NumberOfNights}" PreviewKeyDown="PreventWhitespace" PreviewTextInput="NumericTextValidation"
+                    <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}"># of Nights:</Label>
+                    <TextBox Grid.Row="1" Grid.Column="1" Text="{Binding Path=NumberOfNights}" PreviewKeyDown="PreventWhitespace" PreviewTextInput="NumericTextValidation"
                          Style="{StaticResource TextBoxStyle}" />
-                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Alumni:</Label>
-                <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Path=IsAlumni}" Style="{StaticResource CheckBoxStyle}" />
-            </Grid>
-        </GroupBox>
-        <Button Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}" IsEnabled="True"
+                    <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Alumni:</Label>
+                    <CheckBox Grid.Row="2" Grid.Column="1" IsChecked="{Binding Path=IsAlumni}" Style="{StaticResource CheckBoxStyle}" />
+                </Grid>
+            </GroupBox>
+            <Button Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}" IsEnabled="True"
                 Content="Print" />
-    </StackPanel>
+        </StackPanel>
+    </Grid>
+    
 </Page>

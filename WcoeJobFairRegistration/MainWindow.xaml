@@ -6,6 +6,6 @@
         xmlns:local="clr-namespace:WcoeJobFairRegistration"
         mc:Ignorable="d"
         Title="WCOE Job Fair Registration" WindowState="Maximized"
-        Background="#efe3b9"
+        Background="#FFCCCCCC"
         ShowsNavigationUI="False" Source="Pages/MainPage.xaml">
 </NavigationWindow>
