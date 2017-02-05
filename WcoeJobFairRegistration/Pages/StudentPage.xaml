@@ -6,8 +6,8 @@
       xmlns:local="clr-namespace:WcoeJobFairRegistration.Pages"
       xmlns:control="clr-namespace:WcoeJobFairRegistration.Controls"
       mc:Ignorable="d" 
-      d:DesignHeight="400" d:DesignWidth="300"
-      Title="StudentPage">
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="Student Information">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -16,31 +16,30 @@
         <Image Source="..\Images\campus2.jpg" Grid.Column="0" Stretch="UniformToFill" />
         <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center" Grid.Column="1">
             <Label Content="Swipe your student ID" Style="{StaticResource HeaderTextStyle}" />
+            
             <Grid>
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="3*" />
-                    <ColumnDefinition Width="8*" />
+                    <ColumnDefinition Width="Auto" />
+                    <ColumnDefinition Width="Auto" />
                 </Grid.ColumnDefinitions>
                 <Grid.RowDefinitions>
                     <RowDefinition />
                     <RowDefinition />
                     <RowDefinition />
-                    <RowDefinition />
                 </Grid.RowDefinitions>
 
-            <Label Grid.Column="0" Grid.Row="0" Style="{StaticResource LabelStyle}">R#</Label>
-            <control:FocusTextBox x:Name="rNumber" Grid.Column="1" Grid.Row="0" Text="{Binding Path=RNumber, UpdateSourceTrigger=PropertyChanged, Delay=500}"
-                     Style="{StaticResource TextBoxStyle}" IsEnabled="{Binding InputEnabled}" ShouldFocus="{Binding ShouldFocusOnRNumber}"/>
+                <Label Grid.Column="0" Grid.Row="0">R#</Label>
+                <control:FocusTextBox Grid.Column="1" Grid.Row="0" Text="{Binding Path=RNumber, UpdateSourceTrigger=PropertyChanged, Delay=250}"
+                         IsEnabled="{Binding InputEnabled}" ShouldFocus="{Binding ShouldFocusOnRNumber}"/>
 
-                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">First Name:</Label>
-                <TextBox Text="{Binding Path=FirstName}"  IsEnabled="False" Grid.Row="1" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
+                <Label Grid.Row="1" Grid.Column="0" >First Name:</Label>
+                <TextBox Text="{Binding Path=FirstName}"  IsEnabled="False" Grid.Row="1" Grid.Column="1"/>
 
-                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Last Name:</Label>
-                <TextBox Text="{Binding Path=LastName}"  IsEnabled="False" Grid.Row="2" Grid.Column="1" Style="{StaticResource TextBoxStyle}"/>
-
+                <Label Grid.Row="2" Grid.Column="0" >Last Name:</Label>
+                <TextBox Text="{Binding Path=LastName}"  IsEnabled="False" Grid.Row="2" Grid.Column="1"/>
             </Grid>
-            <Button Style="{StaticResource ButtonStyle}" Command="{Binding PrintCommand}"
-                Content="Print"/>
+            
+            <Button Command="{Binding PrintCommand}" Content="Print"/>
         </StackPanel>
     </Grid>
 </Page>

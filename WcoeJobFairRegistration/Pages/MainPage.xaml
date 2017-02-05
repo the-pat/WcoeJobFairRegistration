@@ -5,8 +5,8 @@
       xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
       xmlns:local="clr-namespace:WcoeJobFairRegistration.Pages"
       mc:Ignorable="d" 
-      d:DesignHeight="300" d:DesignWidth="300"
-      Title="MainPage">
+      d:DesignHeight="600" d:DesignWidth="800"
+      Title="Home Page">
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition />
@@ -15,9 +15,9 @@
         <Image Source="..\Images\campus1.jpg" Stretch="UniformToFill" Grid.Column="0" />
         <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
             <Label Content="Texas Tech Engineering Job Fair" Style="{StaticResource HeaderTextStyle}" FontWeight="ExtraBold" />
-            <Button Content="Student" Style="{StaticResource ButtonStyle}" Command="{Binding GotoStudentPageCommand}" MinWidth="100" Padding="5" />
-            <Button Content="Employer" Style="{StaticResource ButtonStyle}" Command="{Binding GotoEmployeePageCommand}" Padding="5" />
-            <Button Content="Settings" Style="{StaticResource ButtonStyle}" Command="{Binding GotoAdminPageCommand}" Padding="5" />
+            <Button Content="Student" Command="{Binding GotoStudentPageCommand}"/>
+            <Button Content="Employer" Command="{Binding GotoEmployeePageCommand}"/>
+            <Button Content="Settings" Command="{Binding GotoAdminPageCommand}"/>
         </StackPanel>
     </Grid>
 </Page>

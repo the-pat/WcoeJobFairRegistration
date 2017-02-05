@@ -5,7 +5,11 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:WcoeJobFairRegistration"
         mc:Ignorable="d"
-        Title="WCOE Job Fair Registration" WindowState="Maximized"
+        Title="WCOE Job Fair Registration" 
+        WindowState="Maximized"
         Background="#FFCCCCCC"
-        ShowsNavigationUI="False" Source="Pages/MainPage.xaml">
+        ShowsNavigationUI="True" 
+        MinHeight="371"
+        MinWidth="697"
+        Source="Pages/MainPage.xaml">
 </NavigationWindow>
