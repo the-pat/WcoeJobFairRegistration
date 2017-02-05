@@ -14,10 +14,10 @@
         </Grid.ColumnDefinitions>
         <Image Source="..\Images\campus1.jpg" Stretch="UniformToFill" Grid.Column="0" />
         <StackPanel Grid.Column="1" Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Label Content="Texas Tech Engineering Job Fair" Style="{StaticResource HeaderTextStyle}" />
-            <Button Content="Student" Style="{StaticResource ButtonStyle}" Command="{Binding GotoStudentPageCommand}" MinWidth="100" />
-            <Button Content="Employer" Style="{StaticResource ButtonStyle}" Command="{Binding GotoEmployeePageCommand}" />
-            <Button Content="Settings" Style="{StaticResource ButtonStyle}" Command="{Binding GotoAdminPageCommand}" />
+            <Label Content="Texas Tech Engineering Job Fair" Style="{StaticResource HeaderTextStyle}" FontWeight="ExtraBold" />
+            <Button Content="Student" Style="{StaticResource ButtonStyle}" Command="{Binding GotoStudentPageCommand}" MinWidth="100" Padding="5" />
+            <Button Content="Employer" Style="{StaticResource ButtonStyle}" Command="{Binding GotoEmployeePageCommand}" Padding="5" />
+            <Button Content="Settings" Style="{StaticResource ButtonStyle}" Command="{Binding GotoAdminPageCommand}" Padding="5" />
         </StackPanel>
     </Grid>
 </Page>
