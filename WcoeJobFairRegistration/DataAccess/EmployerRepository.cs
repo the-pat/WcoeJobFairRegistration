@@ -61,7 +61,7 @@ namespace WcoeJobFairRegistration.DataAccess
             {
                 return Task.Run(async () =>
                 {
-                    using(var reader = new StreamReader(new FileStream(EmployerFile, FileMode.Create)))
+                    using(var reader = new StreamReader(new FileStream(EmployerFile, FileMode.OpenOrCreate)))
                     {
                         var content = await reader.ReadToEndAsync();
                         _employers = JsonConvert.DeserializeObject<List<Employer>>(content);

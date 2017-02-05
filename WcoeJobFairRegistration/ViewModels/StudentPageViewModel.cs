@@ -17,9 +17,6 @@ namespace WcoeJobFairRegistration.ViewModels
             App app = (Application.Current as App);
             studentRepository = app.StudentRepository;
             printService = app.PrintService;
-
-            // TODO: Remove
-            studentRepository.Load(@"C:\Users\souls\Downloads\Students.csv");
         }
 
         protected string rNumber;
@@ -114,13 +111,7 @@ namespace WcoeJobFairRegistration.ViewModels
         public virtual bool CanPrint
         {
             get { return _canPrint; }
-            set
-            {
-                if(SetProperty(ref _canPrint, value))
-                {
-                    PrintCommand.ChangeCanExecute();
-                }
-            }
+            set { SetProperty(ref _canPrint, value, onChanged: () => PrintCommand.ChangeCanExecute()); }
         }
 
         private bool _shouldFocusOnRNumber = true;
@@ -138,7 +129,7 @@ namespace WcoeJobFairRegistration.ViewModels
             if(student == null)
             {
                 // TODO: Show better error
-                MessageBox.Show("Student not found");
+                MessageBox.Show($"Unable to locate student with R# '{RNumber}'");
                 InputEnabled = true;
             }
             else

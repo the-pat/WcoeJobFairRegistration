@@ -8,29 +8,41 @@
       d:DesignHeight="300" d:DesignWidth="300"
       Title="AdminPage">
     <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition />
-                <RowDefinition />
-                <RowDefinition />
-            </Grid.RowDefinitions>
-            <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}" Grid.Row="0" Margin="10,0,0,0" />
-            <WrapPanel Grid.Row="1" Margin="5">
-                <TextBlock IsEnabled="False" Text="{Binding Path=JobGridCsvFilePath, UpdateSourceTrigger=PropertyChanged, Delay=100}" MinWidth="100" HorizontalAlignment="Left" Width="150" Margin="5,0" >
-                    <TextBlock.Background>
-                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
-                    </TextBlock.Background>
-                </TextBlock>
-                <Button Content="Import Student CSV" Command="{Binding CsvFileDialogCommand}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" ToolTip="Select student CSV from Job Grid" Padding="5" />
-            </WrapPanel>
-            <WrapPanel Grid.Row="2" Margin="5">
-                <TextBlock Text="{Binding Path=ReportingFolderPath, UpdateSourceTrigger=PropertyChanged, Delay=100}" IsEnabled="False" MinWidth="100" HorizontalAlignment="Left" Width="150" Margin="5,0" >
-                    <TextBlock.Background>
-                        <SolidColorBrush Color="{DynamicResource {x:Static SystemColors.ControlColorKey}}"/>
-                    </TextBlock.Background>
-                </TextBlock>
-                <Button Content="Reporting Directory" Command="{Binding ReportingFolderDialogCommand}" HorizontalAlignment="Right" HorizontalContentAlignment="Right" ToolTip="Where do you want to save the attendance information?" Padding="5" />
-            </WrapPanel>
-        </Grid>
+        <GroupBox Header="Data Management" Padding="16" Width="400">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="8*"/>
+                    <ColumnDefinition Width="3*"/>
+                </Grid.ColumnDefinitions>
+                <Grid.RowDefinitions>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                    <RowDefinition/>
+                </Grid.RowDefinitions>
+
+                <CheckBox Content="Allow Manual Student Entry" IsChecked="{Binding IsManualEntry}" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2"/>
+
+                <Label Grid.Row="1" Grid.Column="0" Style="{StaticResource LabelStyle}">Data Import Path:</Label>
+                <TextBox Text="{Binding Path=JobGridCsvFilePath, UpdateSourceTrigger=PropertyChanged}" Grid.Row="1" Grid.Column="1"
+                         VerticalContentAlignment="Center">
+                    <TextBox.InputBindings>
+                        <MouseBinding Command="{Binding CsvFileDialogCommand}" MouseAction="LeftClick"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="Import" Command="{Binding ImportDataCommand}" ToolTip="Select student CSV from Job Grid"
+                        Grid.Row="1" Grid.Column="2"/>
+
+                <Label Grid.Row="2" Grid.Column="0" Style="{StaticResource LabelStyle}">Data Export Path:</Label>
+                <TextBox Text="{Binding Path=ReportingFolderPath, UpdateSourceTrigger=PropertyChanged}" Grid.Row="2" Grid.Column="1"
+                         VerticalContentAlignment="Center">
+                    <TextBox.InputBindings>
+                        <MouseBinding Command="{Binding ReportingFolderDialogCommand}" MouseAction="LeftClick"/>
+                    </TextBox.InputBindings>
+                </TextBox>
+                <Button Content="Update" Command="{Binding UpdatePathCommand}" ToolTip="Select student CSV from Job Grid"
+                        Grid.Row="2" Grid.Column="2"/>
+            </Grid>
+        </GroupBox>
     </StackPanel>
 </Page>

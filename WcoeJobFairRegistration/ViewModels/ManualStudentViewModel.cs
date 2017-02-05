@@ -2,7 +2,7 @@
 
 namespace WcoeJobFairRegistration.ViewModels
 {
-    class ManualStudentViewModel : StudentPageViewModel
+    public class ManualStudentViewModel : StudentPageViewModel
     {
         /// <summary>
         /// Regular expression for validating R#s

@@ -19,7 +19,7 @@ namespace WcoeJobFairRegistration.ViewModels
         public EmployerPageViewModel()
         {
             var app = (Application.Current as App);
-            _employerRepository = app.EmployeeRepository;
+            _employerRepository = app.EmployerRepository;
             _printService = app.PrintService;
         }
 

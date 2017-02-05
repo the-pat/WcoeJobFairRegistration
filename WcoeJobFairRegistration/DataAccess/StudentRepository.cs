@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
-using System.Security.Policy;
 using System.Threading.Tasks;
 using System.Windows;
 using Newtonsoft.Json;
@@ -53,7 +52,7 @@ namespace WcoeJobFairRegistration.DataAccess
                     {
                         content = await reader.ReadToEndAsync();
                     }
-                    var lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries).Skip(1);
+                    var lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
                     _jobGridStudents = lines.Select(line =>
                     {
                         var parts = line.Split(',');
@@ -126,7 +125,7 @@ namespace WcoeJobFairRegistration.DataAccess
                 return Task.Run(async () =>
                 {
                     // Load data used for searching
-                    using(var reader = new StreamReader(new FileStream(JobGridStudentFile, FileMode.Create)))
+                    using(var reader = new StreamReader(new FileStream(JobGridStudentFile, FileMode.OpenOrCreate)))
                     {
                         var content = await reader.ReadToEndAsync();
                         _jobGridStudents = JsonConvert.DeserializeObject<List<JobGridStudent>>(content);
@@ -134,7 +133,7 @@ namespace WcoeJobFairRegistration.DataAccess
                     }
 
                     // Load persisted version
-                    using(var reader = new StreamReader(new FileStream(AttendingStudentFile, FileMode.Create)))
+                    using(var reader = new StreamReader(new FileStream(AttendingStudentFile, FileMode.OpenOrCreate)))
                     {
                         var content = await reader.ReadToEndAsync();
                         _attendingStudents = JsonConvert.DeserializeObject<List<AttendingStudent>>(content);
