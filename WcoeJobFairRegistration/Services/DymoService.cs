@@ -29,7 +29,7 @@ namespace WcoeJobFairRegistration.Services
             {
                 var label = Label.Open("Labels/student.label");
 
-                label.SetObjectText("NAME", $"{student.FirstName} {student.LastName}");
+                label.SetObjectText("name", $"{student.FirstName} {student.LastName}");
                 this.Print(label);
 
                 return true;
