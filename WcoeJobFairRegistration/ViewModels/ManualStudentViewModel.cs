@@ -20,7 +20,12 @@ namespace WcoeJobFairRegistration.ViewModels
             set
             {
                 SetProperty(ref rNumber, value);
-                if(!_rNumRegex.IsMatch(value))
+                if (rNumber.Equals("0"))
+                {
+                    _validRNumber = true;
+                    RNumberError = "\"0\" represents a non-TTU student";
+                }
+                else if(!_rNumRegex.IsMatch(value))
                 {
                     _validRNumber = false;
                     RNumberError = "Please enter a valid R#";
