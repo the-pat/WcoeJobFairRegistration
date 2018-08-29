@@ -18,8 +18,8 @@ Student/employer registration system for TTU College of Engineering Job Fair
 ### For Everyone :busts_in_silhouette:
 To use this application outside of a development environment, you will need to:
 
- 1. Install the [Prerequisites](#prerequisites)
- 2. Download the installer [here]()
+ 1. Install the [Prerequisites](#prerequisites) (above)
+ 2. Download the installer [here](https://github.com/the-pat/WcoeJobFairRegistration/releases)
  3. Install and enjoy! :smile:
 
 ### For Developers :octocat:
