@@ -15,7 +15,7 @@
     <WarningLevel>4</WarningLevel>
     <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
     <IsWebBootstrapper>false</IsWebBootstrapper>
-    <PublishUrl>C:\Users\patri\Documents\code\csharp\WCOE\Installer\</PublishUrl>
+    <PublishUrl>C:\Users\patrickt\Desktop\WcoeJobFairRegistration\Installer\</PublishUrl>
     <Install>true</Install>
     <InstallFrom>Disk</InstallFrom>
     <UpdateEnabled>false</UpdateEnabled>
@@ -27,8 +27,10 @@
     <MapFileExtensions>true</MapFileExtensions>
     <SupportUrl>https://github.com/the-pat/WcoeJobFairRegistration</SupportUrl>
     <ErrorReportUrl>https://github.com/the-pat/WcoeJobFairRegistration/issues</ErrorReportUrl>
-    <AutorunEnabled>true</AutorunEnabled>
-    <ApplicationRevision>1</ApplicationRevision>
+    <TargetCulture>en-US</TargetCulture>
+    <ProductName>WcoeJobFairRegistration</ProductName>
+    <PublisherName>Patrick Tone</PublisherName>
+    <ApplicationRevision>2</ApplicationRevision>
     <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <CreateDesktopShortcut>true</CreateDesktopShortcut>
@@ -88,19 +90,11 @@
   <PropertyGroup>
     <SignManifests>false</SignManifests>
   </PropertyGroup>
+  <PropertyGroup>
+    <StartupObject>WcoeJobFairRegistration.App</StartupObject>
+  </PropertyGroup>
   <ItemGroup>
-    <Reference Include="DYMO.Common">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.Common.dll</HintPath>
-    </Reference>
-    <Reference Include="DYMO.DLS.Runtime">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.DLS.Runtime.dll</HintPath>
-    </Reference>
-    <Reference Include="DYMO.DLS.Runtime.TS">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.DLS.Runtime.TS.dll</HintPath>
-    </Reference>
-    <Reference Include="DYMO.Label.Framework">
-      <HintPath>..\..\..\..\..\..\..\Program Files (x86)\DYMO\DYMO Label Software\Framework\DYMO.Label.Framework.dll</HintPath>
-    </Reference>
+    <Reference Include="DYMO.Label.Framework, Version=1.0.0.0, Culture=neutral, PublicKeyToken=5426002a38745af9, processorArchitecture=MSIL" />
     <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>packages\Newtonsoft.Json.9.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
       <Private>True</Private>
@@ -212,12 +206,12 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <None Include="Labels\employer.label">
+    <Content Include="Labels\employer.label">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Labels\student.label">
+    </Content>
+    <Content Include="Labels\student.label">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
+    </Content>
     <None Include="packages.config" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

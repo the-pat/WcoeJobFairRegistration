@@ -131,6 +131,7 @@ namespace WcoeJobFairRegistration.ViewModels
                 // TODO: Show better error
                 MessageBox.Show($"Unable to locate student with R# '{RNumber}'");
                 InputEnabled = true;
+                Reset();
             }
             else
             {

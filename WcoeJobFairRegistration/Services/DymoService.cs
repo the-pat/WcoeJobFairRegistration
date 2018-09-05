@@ -8,14 +8,14 @@ namespace WcoeJobFairRegistration.Services
 {
     internal class DymoService : IPrintService
     {
-        private ILabelWriterPrinter _printer;
+        private ILabelWriterPrinter _printer = null;
 
         /// <summary>
         /// The default constructor. Connects to the first LabelWriterPrinter available.
         /// </summary>
         public DymoService()
         {
-            _printer = Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected) as ILabelWriterPrinter;
+            Connect();
         }
 
         /// <summary>
@@ -76,6 +76,8 @@ namespace WcoeJobFairRegistration.Services
         /// <param name="label">The Given label</param>
         private void Print(ILabel label)
         {
+            if (!IsConnected() && !Connect()) throw new Exception("Could not connect to a printer.");
+
             var printJob = this._printer.CreatePrintJob(null);
 
             printJob.AddLabel(label);
@@ -92,7 +94,7 @@ namespace WcoeJobFairRegistration.Services
 
         public bool Connect()
         {
-            _printer = Framework.GetLabelWriterPrinters().FirstOrDefault(p => p.IsConnected) as ILabelWriterPrinter;
+            _printer = new Printers().FirstOrDefault(p => p.IsConnected && p is ILabelWriterPrinter) as ILabelWriterPrinter;
             return _printer != null;
         }
     }
