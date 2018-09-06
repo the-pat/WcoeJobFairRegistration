@@ -10,6 +10,10 @@ namespace WcoeJobFairRegistration.Models
 
         public string LastName { get; set; }
 
+        public string Major { get; set; }
+
+        public string Graduation { get; set; }
+
         public DateTime CheckInTime { get; set; }
     }
 }

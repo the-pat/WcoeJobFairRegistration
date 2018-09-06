@@ -52,15 +52,17 @@ namespace WcoeJobFairRegistration.DataAccess
                     {
                         content = await reader.ReadToEndAsync();
                     }
-                    var lines = content.Split(new char[] { '\n' }, StringSplitOptions.RemoveEmptyEntries);
+                    var lines = content.Split(new char[] { '\n', '\r' }, StringSplitOptions.RemoveEmptyEntries).Skip(1);
                     _jobGridStudents = lines.Select(line =>
                     {
                         var parts = line.Split(',');
                         return new JobGridStudent
                         {
-                            RNumber = parts[5].Trim(),
-                            FirstName = parts[1].Trim(),
-                            LastName = parts[2].Trim()
+                            RNumber = parts[0].Trim(),
+                            Major = parts[1].Trim(),
+                            Graduation = parts[2].Trim(),
+                            FirstName = parts[3].Trim(),
+                            LastName = parts[4].Trim()
                         };
                     }).ToList();
                     _jobGridStudents = _jobGridStudents ?? new List<JobGridStudent>();

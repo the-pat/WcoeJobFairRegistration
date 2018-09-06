@@ -1,4 +1,6 @@
-﻿namespace WcoeJobFairRegistration.Models
+﻿using System;
+
+namespace WcoeJobFairRegistration.Models
 {
     public class JobGridStudent
     {
@@ -7,5 +9,9 @@
         public string FirstName { get; set; }
 
         public string LastName { get; set; }
+
+        public string Major { get; set; }
+
+        public string Graduation { get; set; }
     }
 }

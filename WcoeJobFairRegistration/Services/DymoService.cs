@@ -29,7 +29,27 @@ namespace WcoeJobFairRegistration.Services
             {
                 var label = Label.Open("Labels/student.label");
 
-                label.SetObjectText("name", $"{student.FirstName} {student.LastName}");
+                label.SetObjectText("FIRSTNAME", student.FirstName);
+                label.SetObjectText("LASTNAME", student.LastName);
+
+                if (!string.IsNullOrWhiteSpace(student.Major))
+                {
+                    label.SetObjectText("MAJOR", student.Major);
+                }
+                else
+                {
+                    label.SetObjectText("MAJOR", string.Empty);
+                }
+
+                if (!string.IsNullOrWhiteSpace(student.Graduation))
+                {
+                    label.SetObjectText("GRADUATION", student.Graduation);
+                }
+                else
+                {
+                    label.SetObjectText("GRADUATION", string.Empty);
+                }
+
                 this.Print(label);
 
                 return true;
@@ -54,8 +74,9 @@ namespace WcoeJobFairRegistration.Services
                 var label = Label.Open("Labels/employer.label");
 
                 // fill out the label information
-                label.SetObjectText("NAME", $"{employer.FirstName} {employer.LastName}");
-                label.SetObjectText("ORGANIZATION", employer.Organization);
+                label.SetObjectText("FIRSTNAME", employer.FirstName);
+                label.SetObjectText("LASTNAME", employer.LastName);
+                label.SetObjectText("COMPANY", employer.Organization);
                 label.SetObjectText("TITLE", employer.Title);
 
                 this.Print(label);

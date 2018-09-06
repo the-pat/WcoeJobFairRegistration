@@ -63,6 +63,10 @@ namespace WcoeJobFairRegistration.ViewModels
             set { SetProperty(ref _lastName, value); }
         }
 
+        public string Major { get; private set; }
+
+        public string Graduation { get; private set; }
+
         private Command _printCommand;
         public virtual Command PrintCommand
         {
@@ -82,6 +86,8 @@ namespace WcoeJobFairRegistration.ViewModels
                 FirstName = FirstName,
                 LastName = LastName,
                 RNumber = RNumber,
+                Major = Major,
+                Graduation = Graduation,
                 CheckInTime = DateTime.Now
             };
             var result = await Task.Run(() => printService.PrintStudentLabel(student));
@@ -137,8 +143,11 @@ namespace WcoeJobFairRegistration.ViewModels
             {
                 FirstName = student.FirstName;
                 LastName = student.LastName;
+                Major = student.Major;
+                Graduation = student.Graduation;
 
                 CanPrint = true;
+                PrintCommand.Execute(null);
             }
         }
 
